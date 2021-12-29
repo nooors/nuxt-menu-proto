@@ -6,9 +6,7 @@
           <v-row>
             <v-col class="d-flex justify-center">
               <v-card elevation="10" shaped class="py-4 px-6">
-                <v-form>
-                  <nuxt />
-                </v-form>
+                <nuxt />
               </v-card>
             </v-col>
           </v-row>
