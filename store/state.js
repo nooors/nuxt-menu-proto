@@ -1,3 +1,3 @@
 export default () => ({
-  state: { authenticate: true, users: [] },
+  state: { authenticate: true, users: [], menu: null },
 });
