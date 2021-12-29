@@ -1,5 +1,5 @@
 export default {
-  async Register({ commit }, payload) {
+  async Register(payload) {
     try {
       const response = await this.$axios.$post(
         "http://localhost:3000/users",

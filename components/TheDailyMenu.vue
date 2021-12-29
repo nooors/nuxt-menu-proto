@@ -22,7 +22,7 @@
         {{ starter.Description[0] }}
       </v-col>
     </v-row>
-    <v-divder></v-divder>
+    <v-divider></v-divider>
     <v-row>
       <v-col class="d-flex justify-center">
         <v-card-subtitle class="d-flex justify-center"

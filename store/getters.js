@@ -1,3 +1,5 @@
 export default {
-  getMenu: (state) => state.menu,
+  getMenu(state) {
+    return state.menu;
+  },
 };

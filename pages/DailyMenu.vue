@@ -17,7 +17,9 @@ export default {
   },
   computed: {
     menuStore: function () {
-      return this.$store.state.menu;
+      console.log("getters");
+      console.log(this.$store.getters.getMenu);
+      return this.$store.getters.getMenu;
     },
   },
   watch: {
