@@ -19,4 +19,7 @@ export default {
       console.log(error);
     }
   },
+  setLanguage({ commit }, payload) {
+    commit("setLanguage", payload);
+  },
 };

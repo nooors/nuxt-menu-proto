@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-5">
+  <v-card class="pa-5" elevation="10" shaped>
     <v-row>
       <v-col class="d-flex justify-end mr-4">
         {{ menu.InitDate }}
@@ -10,36 +10,36 @@
         <v-card-title>Menú</v-card-title>
       </v-col>
     </v-row>
-    <v-divider />
+    <v-divider class="mt-5" />
     <v-row>
       <v-col class="d-flex justify-center">
-        <v-card-subtitle>Primeros</v-card-subtitle>
+        <v-card-subtitle class="subtitle-1">Primeros</v-card-subtitle>
       </v-col>
     </v-row>
     <v-row v-for="starter in menu.Starters" :key="starter._id.$oid">
-      <v-col class="d-flex justify-center direction-column">
-        {{ starter.ShortName[0] }}
-        {{ starter.Description[0] }}
+      <v-col class="d-flex flex-column align-center">
+        <p class="mb-1">{{ starter.ShortName[language] }}</p>
+        <p class="caption">{{ starter.Description[language] }}</p>
       </v-col>
     </v-row>
-    <v-divider></v-divider>
+    <v-divider class="mt-5"></v-divider>
     <v-row>
       <v-col class="d-flex justify-center">
-        <v-card-subtitle class="d-flex justify-center"
+        <v-card-subtitle class="d-flex justify-center subtitle-1"
           >Segundos</v-card-subtitle
         >
       </v-col>
     </v-row>
     <v-row v-for="main in menu.Main" :key="main._id.$oid">
-      <v-col class="d-flex direction-column justify-center">
-        {{ main.ShortName[0] }}
-        {{ main.Description[0] }}
+      <v-col class="d-flex flex-column align-center">
+        <p class="mb-1">{{ main.ShortName[language] }}</p>
+        <p class="caption">{{ main.Description[language] }}</p>
       </v-col>
     </v-row>
-    <v-divider />
-    <v-card-text class="d-flex direction-column">
-      {{ menu.Text[0] }}
-      {{ menu.Price[0] }}
+    <v-divider class="mt-5" />
+    <v-card-text class="d-flex flex-column align-center">
+      <p>{{ menu.Text[language] }}</p>
+      <p class="body-1">{{ menu.Price[0] }} €</p>
     </v-card-text>
   </v-card>
 </template>
@@ -47,7 +47,7 @@
 <script>
 export default {
   name: "TheDailyMenu",
-  props: ["menu"],
+  props: ["menu", "language"],
 };
 </script>
 

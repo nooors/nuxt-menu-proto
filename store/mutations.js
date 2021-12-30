@@ -5,4 +5,7 @@ export default {
   setMenu: (state, payload) => {
     state.menu = payload;
   },
+  setLanguage: (state, payload) => {
+    state.languageSelected = payload;
+  },
 };
