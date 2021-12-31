@@ -8,4 +8,7 @@ export default {
   getLanguageSelected(state) {
     return state.languageSelected;
   },
+  getIsLogged(state) {
+    return state.isLogged;
+  },
 };

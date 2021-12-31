@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-navigation-drawer
+      v-if="isLogged"
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -41,9 +42,7 @@
       ><v-switch
         v-model="$vuetify.theme.dark"
         prepend-icon="mdi-lightbulb-variant-outline"
-        append-icon="mdi-lightbulb-variant"
-        >mdi-lightbulb-variant</v-switch
-      >
+      ></v-switch>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -101,6 +100,28 @@ export default {
       title: "Vuetify.js",
       dark: true,
     };
+  },
+  computed: {
+    isLogged: function () {
+      console.log("isLogged");
+      return this.$store.getters.getIsLogged;
+    },
+  },
+  created() {
+    if (this.isLogged) {
+      this.items.push(
+        {
+          icon: "mdi-account-plus-outline",
+          title: "Register",
+          to: "/Register",
+        },
+        {
+          icon: "mdi-logout ",
+          title: "Log Out",
+          to: "/LogOut",
+        }
+      );
+    }
   },
 };
 </script>

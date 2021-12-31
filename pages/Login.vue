@@ -65,9 +65,11 @@ export default {
     };
   },
   methods: {
-    Submit() {
+    Submit({ redirect }) {
       console.log("action fired");
-      this.$store.dispatch("login", this.email, this.password);
+      this.$store.commit("setAuthenticate");
+      this.$store.commit("isLogged");
+      this.$router.push("/");
     },
   },
 };

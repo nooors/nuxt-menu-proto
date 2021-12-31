@@ -1,7 +1,8 @@
 export default () => ({
-  authenticate: true,
+  authenticate: false,
   users: [],
   menu: null,
   languages: ["Español", "Català", "English"],
   languageSelected: 0,
+  isLogged: false,
 });

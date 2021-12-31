@@ -6,6 +6,16 @@
           <v-row>
             <v-col class="d-flex justify-center">
               <v-card elevation="10" shaped class="py-4 px-6">
+                <button
+                  type="button"
+                  class="v-btn v-btn--icon v-btn--round theme--light v-size--default"
+                  aria-label="invert-example-colors"
+                  @click="$vuetify.theme.dark"
+                >
+                  <v-icon>
+                    mdi-lightbulb-variant-outline
+                  </v-icon>
+                </button>
                 <nuxt />
               </v-card>
             </v-col>
