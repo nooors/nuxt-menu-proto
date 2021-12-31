@@ -13,7 +13,7 @@
                   @click="$vuetify.theme.dark"
                 >
                   <v-icon>
-                    mdi-lightbulb-variant-outline
+                    mdi-invert-colors
                   </v-icon>
                 </button>
                 <nuxt />

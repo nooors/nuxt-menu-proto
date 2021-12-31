@@ -22,4 +22,7 @@ export default {
   removeAuthenticate: (state) => {
     state.authenticate = false;
   },
+  setProducts: (state, payload) => {
+    state.products = payload;
+  },
 };

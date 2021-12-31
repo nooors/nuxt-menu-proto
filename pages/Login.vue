@@ -66,7 +66,6 @@ export default {
   },
   methods: {
     Submit({ redirect }) {
-      console.log("action fired");
       this.$store.commit("setAuthenticate");
       this.$store.commit("isLogged");
       this.$router.push("/");

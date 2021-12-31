@@ -3,9 +3,8 @@
     v-model="lang"
     :items="languages"
     menu-props="auto"
-    label="Select"
     hide-details
-    prepend-icon="mdi-map"
+    prepend-inner-icon="mdi-map"
     single-line
   ></v-select>
 </template>

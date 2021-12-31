@@ -1,3 +1,4 @@
+const apiBase = "http://localhost:3000/";
 export default {
   async Register(payload) {
     try {
@@ -13,8 +14,16 @@ export default {
   },
   async getMenu({ commit }) {
     try {
-      const response = await this.$axios.$get("http://localhost:3000/menu");
+      const response = await this.$axios.$get(`${apiBase}menu`);
       commit("setMenu", response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async getProducts({ commit }) {
+    try {
+      const response = await this.$axios.$get(`${apiBase}dishes`);
+      commit("setProducts", response);
     } catch (error) {
       console.log(error);
     }

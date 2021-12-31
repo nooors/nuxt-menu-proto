@@ -11,4 +11,7 @@ export default {
   getIsLogged(state) {
     return state.isLogged;
   },
+  getProducts(state) {
+    return state.products;
+  },
 };

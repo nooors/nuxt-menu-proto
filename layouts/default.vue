@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <v-navigation-drawer
-      v-if="isLogged"
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -41,7 +40,7 @@
       <v-icon left dark></v-icon
       ><v-switch
         v-model="$vuetify.theme.dark"
-        prepend-icon="mdi-lightbulb-variant-outline"
+        prepend-icon="mdi-invert-colors"
       ></v-switch>
     </v-app-bar>
     <v-main>
@@ -93,6 +92,11 @@ export default {
           icon: "mdi-silverware ",
           title: "Daily-menu",
           to: "/DailyMenu",
+        },
+        {
+          icon: "mdi-palette",
+          title: "Colors",
+          to: "/Colors",
         },
       ],
       miniVariant: false,

@@ -26,7 +26,7 @@ export default {
   components: { TheDailyMenu, TheLanguages },
   async fetch() {
     await this.$store.dispatch("getMenu");
-    this.menuStore = await this.$store.getters.getMenu;
+    this.menuStore = this.$store.getters.getMenu;
   },
   // beforeCreate() {
   //   this.$store.dispatch("getMenu");
@@ -36,15 +36,6 @@ export default {
     language: function () {
       return this.$store.getters.getLanguageSelected;
     },
-  },
-  watch: {
-    menuStore: function () {
-      this.menu = this.$store.getters.getMenu;
-    },
-  },
-  created() {
-    console.log("getting languages");
-    console.log(this.$store.getters.getLanguages);
   },
 };
 </script>
