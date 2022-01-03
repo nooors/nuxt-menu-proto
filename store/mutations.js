@@ -1,3 +1,4 @@
+
 export default {
   setUsers: (state, payload) => {
     state.users = payload;
@@ -8,9 +9,9 @@ export default {
   setLanguage: (state, payload) => {
     state.languageSelected = payload;
   },
-  isLogged: (state) => {
+  isLogged: (state, payload) => {
     state.isLogged = true;
-    localStorage.setItem("logged", "true");
+    localStorage.setItem("token", payload);
   },
   logOut: (state) => {
     state.isLogged = false;
@@ -24,5 +25,8 @@ export default {
   },
   setProducts: (state, payload) => {
     state.products = payload;
+  },
+  setFamilies: (state, payload) => {
+    state.families = payload;
   },
 };

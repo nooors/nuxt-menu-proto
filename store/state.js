@@ -4,6 +4,7 @@ export default () => ({
   menu: null,
   languages: ["Español", "Català", "English"],
   languageSelected: 0,
-  isLogged: false,
+  isLogged: true,
   products: null,
+  families: null,
 });

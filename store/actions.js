@@ -1,17 +1,36 @@
-const apiBase = "http://localhost:3000/";
+import { parseJwt } from "~/utils/api";
+
+const apiBase = "https://menuproto.ddns.net/api/";
 export default {
   async Register(payload) {
     try {
-      const response = await this.$axios.$post(
-        "http://localhost:3000/users",
-        payload
-      );
+      const response = await this.$axios.$post(apiBase, payload);
       //commit("setUsers", response);
       console.log(response);
     } catch (error) {
       console.log(error);
     }
   },
+  async login({ commit, redirect }, payload) {
+    alert(payload);
+    console.table(payload);
+    try {
+      const response = await this.$axios.$post(
+        `${apiBase}Accounts/login`,
+        payload
+      );
+      console.log(response);
+      console.log(response.token);
+      let tokenParsed = parseJwt(response.token);
+      console.log(tokenParsed);
+      commit("isLogged", response.token);
+      $router.push("/");
+      console.log("redirect");
+    } catch (error) {
+      alert(error);
+    }
+  },
+
   async getMenu({ commit }) {
     try {
       const response = await this.$axios.$get(`${apiBase}menu`);
@@ -26,6 +45,14 @@ export default {
       commit("setProducts", response);
     } catch (error) {
       console.log(error);
+    }
+  },
+  async getFamilies({ commit }) {
+    try {
+      const response = await this.$axios.$get(`${apiBase}Families`);
+      commit("setFamilies");
+    } catch (error) {
+      alert(error);
     }
   },
   setLanguage({ commit }, payload) {

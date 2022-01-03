@@ -9,7 +9,7 @@ export default {
     return state.languageSelected;
   },
   getIsLogged(state) {
-    return state.isLogged;
+    return state.getIsLogged;
   },
   getProducts(state) {
     return state.products;

@@ -108,7 +108,9 @@ export default {
   computed: {
     isLogged: function () {
       console.log("isLogged");
-      return this.$store.getters.getIsLogged;
+      let result = this.$store.getters.getIsLogged;
+      alert(result);
+      return result;
     },
   },
   created() {
