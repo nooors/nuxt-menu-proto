@@ -12,18 +12,13 @@ export default {
       console.log(error);
     }
   },
-  async login({ commit, redirect }, payload) {
-    alert(payload);
-    console.table(payload);
+  async login({ commit }, payload) {
     try {
       const response = await this.$axios.$post(
         `${apiBase}Accounts/login`,
         payload
       );
-      console.log(response);
-      console.log(response.token);
       let tokenParsed = parseJwt(response.token);
-      console.log(tokenParsed);
       commit("isLogged", response.token);
       $router.push("/");
       console.log("redirect");

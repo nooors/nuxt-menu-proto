@@ -1,11 +1,14 @@
 <template>
-  <h1>
-    Departments
-  </h1>
+  <div>
+    <the-menu />
+  </div>
 </template>
 
 <script>
-export default {};
+import TheMenu from "~/components/TheMenu.vue";
+export default {
+  components: { TheMenu },
+};
 </script>
 
 <style></style>

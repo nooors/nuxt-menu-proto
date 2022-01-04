@@ -48,9 +48,9 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer :absolute="!fixed" app>
+    <!-- <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 
@@ -102,7 +102,7 @@ export default {
       ],
       miniVariant: false,
       right: true,
-      title: "Vuetify.js",
+      title: "Menu-Nuxt",
       dark: true,
     };
   },

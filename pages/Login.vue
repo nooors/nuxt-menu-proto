@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import store from "vuex";
 export default {
   layout: "authenticate",
   data() {
@@ -60,7 +59,6 @@ export default {
   methods: {
     Submit() {
       if (this.$refs.form.validate()) {
-        alert("validate");
         this.$store.dispatch("login", this.login).then(this.logged);
       }
       // this.$store.commit("setAuthenticate");
@@ -70,6 +68,12 @@ export default {
     logged() {
       return this.$router.push("/");
     },
+  },
+  mounted() {
+    if (localStorage.getItem("token")) {
+      this.$store.state.isLogged = true;
+      this.$router.push("/");
+    }
   },
 };
 </script>
