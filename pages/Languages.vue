@@ -1,11 +1,14 @@
 <template>
-  <h1>
-    Languages
-  </h1>
+  <the-dialog />
 </template>
 
 <script>
-export default {};
+import TheDialog from "~/components/TheDialog.vue";
+export default {
+  components: {
+    TheDialog,
+  },
+};
 </script>
 
 <style></style>

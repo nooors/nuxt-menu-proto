@@ -1,4 +1,3 @@
-
 export default {
   setUsers: (state, payload) => {
     state.users = payload;
@@ -12,6 +11,7 @@ export default {
   isLogged: (state, payload) => {
     state.isLogged = true;
     localStorage.setItem("token", payload);
+    state.token = payload;
   },
   logOut: (state) => {
     state.isLogged = false;
@@ -27,6 +27,8 @@ export default {
     state.products = payload;
   },
   setFamilies: (state, payload) => {
+    console.log("mutations");
+    console.log(payload);
     state.families = payload;
   },
 };

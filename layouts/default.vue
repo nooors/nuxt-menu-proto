@@ -57,6 +57,7 @@
 <script>
 export default {
   name: "DefaultLayout",
+  middleware: "auth",
   data() {
     return {
       clipped: false,
@@ -109,11 +110,13 @@ export default {
     isLogged: function () {
       console.log("isLogged");
       let result = this.$store.getters.getIsLogged;
-      alert(result);
+      console.log(result);
       return result;
     },
   },
   created() {
+    console.log("created");
+    console.log(this.isLogged);
     if (this.isLogged) {
       this.items.push(
         {

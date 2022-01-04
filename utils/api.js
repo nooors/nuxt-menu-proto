@@ -6,7 +6,9 @@
 //   .then((res) => res.json())
 //   .then((e) => console.log(e));
 
-// export const apiBase = "https://menuproto.ddns.net/api/";
+export const apiBase = "https://menuproto.ddns.net/api/";
+
+// export const header = { Authorization: `Bearer ${tokenApi}` };
 
 export const parseJwt = function (token) {
   var base64Url = token.split(".")[1];

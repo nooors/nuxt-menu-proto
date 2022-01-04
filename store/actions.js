@@ -1,6 +1,7 @@
 import { parseJwt } from "~/utils/api";
+import { apiBase } from "~/utils/api";
+import { tokenApi } from "~/utils/api";
 
-const apiBase = "https://menuproto.ddns.net/api/";
 export default {
   async Register(payload) {
     try {
@@ -47,12 +48,18 @@ export default {
       console.log(error);
     }
   },
-  async getFamilies({ commit }) {
+  async getFamilies({ commit, getters }) {
     try {
-      const response = await this.$axios.$get(`${apiBase}Families`);
-      commit("setFamilies");
+      const response = await this.$axios.$get(`${apiBase}Families`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vb29yc0BnbWFpbC5jb20iLCJQcnVlYmEiOiJlc1BydWViYSIsImV4cCI6MTY0MTM3MjM5Mn0.-D6FIE5KvrJWJAgmh0Zp2xVmbU2U7p9tcuG9qpc-3_I",
+        },
+      });
+      commit("setFamilies", response);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   },
   setLanguage({ commit }, payload) {

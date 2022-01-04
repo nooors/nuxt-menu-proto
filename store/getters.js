@@ -1,4 +1,7 @@
 export default {
+  getToken(state) {
+    return state.token;
+  },
   getMenu(state) {
     return state.menu;
   },
@@ -9,9 +12,12 @@ export default {
     return state.languageSelected;
   },
   getIsLogged(state) {
-    return state.getIsLogged;
+    return state.isLogged;
   },
   getProducts(state) {
     return state.products;
+  },
+  getFamilies(state) {
+    return state.families;
   },
 };
