@@ -20,4 +20,7 @@ export default {
   getFamilies(state) {
     return state.families;
   },
+  getToken() {
+    return localStorage.getItem("token");
+  },
 };

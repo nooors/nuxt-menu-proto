@@ -3,14 +3,14 @@
     <h1 class="mb-5">Families</h1>
     <div class="d-flex flex-column">
       <v-card
-        class="mb-3"
+        class="mb-7"
         shaped
         elevation="10"
         v-for="family in families"
         :key="family.id"
         max-width="200"
       >
-        <v-card-text class="text-center">
+        <v-card-text class="text-center body-1">
           {{ family.name }}
         </v-card-text>
         <v-card-actions class="mb-3">
@@ -33,7 +33,7 @@
                   v-on="on"
                   v-bind="attrs"
                 >
-                  <v-icon>mdi-plus</v-icon>
+                  <v-icon>mdi-pencil</v-icon>
                 </v-btn>
               </template>
             </v-menu>
