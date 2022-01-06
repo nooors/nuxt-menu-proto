@@ -193,7 +193,10 @@ export default {
       const keys = [];
       this.families.every((element) => keys.push(element.id));
       keys.sort((a, b) => a - b);
-      this.families.push({ id: keys[keys.length] + 1, name: this.newFamily });
+      this.families.push({
+        id: keys[keys.length - 1] + 1,
+        name: this.newFamily,
+      });
       this.dialog = false;
     },
   },
