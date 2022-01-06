@@ -76,12 +76,40 @@
           </v-col>
 
           <v-col>
+            <v-file-input
+              prepend-icon=""
+              append-icon="mdi-camera"
+              name="input-10-2"
+              label="Photo"
+              hint="upload a profile photo"
+              accept="image/png, image/jpeg, image/bmp"
+              class="input-group--focused"
+            ></v-file-input>
+          </v-col>
+        </v-row>
+        <v-row class="mx-2">
+          <v-col>
             <v-text-field
               :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[rules.required, rules.min]"
               :type="show2 ? 'text' : 'password'"
               name="input-10-2"
               label="Password"
+              hint="At least 8 characters"
+              value=""
+              v-model="dataValues.password"
+              class="input-group--focused"
+              @click:append="show2 = !show2"
+            ></v-text-field>
+          </v-col>
+
+          <v-col>
+            <v-text-field
+              :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required, rules.min]"
+              :type="show2 ? 'text' : 'password'"
+              name="input-10-2"
+              label="Confim password"
               hint="At least 8 characters"
               value=""
               v-model="dataValues.password"
@@ -123,7 +151,7 @@ export default {
           return pattern.test(value) || "Invalid number.";
         },
       },
-      items: ["Admin", "Collaborator", "Guest"],
+      items: ["Admin", "User", "Guest"],
       dataValues: {
         email: "",
         password: "",

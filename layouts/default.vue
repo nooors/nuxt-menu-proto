@@ -115,8 +115,6 @@ export default {
     },
   },
   created() {
-    console.log("created");
-    console.log(this.isLogged);
     if (this.isLogged) {
       this.items.push(
         {
@@ -134,3 +132,8 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+html {
+  overflow-y: auto;
+}
+</style>
