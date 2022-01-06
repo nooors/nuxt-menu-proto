@@ -5,7 +5,8 @@ export default () => ({
   languages: ["Español", "Català", "English"],
   languageSelected: 0,
   isLogged: false,
-  products: null,
-  families: null,
+  products: [],
+  families: [],
+  departments: [],
   token: null,
 });

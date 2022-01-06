@@ -159,7 +159,7 @@
 export default {
   data() {
     return {
-      families: null,
+      families: [],
       fab: true,
       menu: false,
       message: false,
@@ -177,10 +177,12 @@ export default {
   },
   methods: {
     deleteFamily: function (id) {
-      let temp = this.families.splice(
-        this.families.findIndex((element) => element.id === id),
-        1
-      );
+      if (this.families.length > 0) {
+        this.families.splice(
+          this.families.findIndex((element) => element.id === id),
+          1
+        );
+      }
     },
     saveChanges: function () {
       alert("save");

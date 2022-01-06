@@ -1,43 +1,48 @@
 <template>
   <div class="text-center">
     <v-menu
-      v-model="menu"
+      :v-model="menu"
       :close-on-content-click="false"
-      :nudge-width="200"
+      nudge-width="200"
       offset-x
+      persistent
+      allow-overflow
+      shaped
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn color="indigo" dark v-bind="attrs" v-on="on">
-          Menu as Popover
+        <v-btn
+          color="pink"
+          fab
+          dark
+          x-small
+          absolute
+          bottom
+          right
+          v-on="on"
+          v-bind="attrs"
+        >
+          <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </template>
-
-      <v-card>
-        <v-list>
-          <v-list-item>
-            <v-list-item-avatar>
-              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
-            </v-list-item-avatar>
-
-            <v-list-item-content>
-              <v-list-item-title>John Leider</v-list-item-title>
-              <v-list-item-subtitle>Founder of Vuetify</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-
-        <v-divider></v-divider>
-
-        <v-list> </v-list>
-
+      <v-card shaped class="pa-3">
+        <v-form ref="family-form">
+          <v-text-field
+            v-model="family.name"
+            :value="family.name"
+          ></v-text-field>
+        </v-form>
         <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn text @click="menu = false">
-            Cancel
-          </v-btn>
-          <v-btn color="primary" text @click="menu = false">
-            Save
+          <v-btn
+            color="pink"
+            fab
+            dark
+            absolute
+            bottom
+            right
+            x-small
+            @click="deleteFamily(family.id)"
+          >
+            <v-icon>mdi-delete</v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>

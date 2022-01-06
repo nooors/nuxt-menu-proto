@@ -20,6 +20,9 @@ export default {
   getFamilies(state) {
     return state.families;
   },
+  getDepartments(state) {
+    return state.departments;
+  },
   getToken() {
     return localStorage.getItem("token");
   },

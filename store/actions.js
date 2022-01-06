@@ -35,9 +35,14 @@ export default {
       console.log(error);
     }
   },
-  async getProducts({ commit }) {
+  async getProducts({ commit, getters }) {
     try {
-      const response = await this.$axios.$get(`${apiBase}dishes`);
+      const response = await this.$axios.$get(`${apiBase}Products`, {
+        headers: {
+          "Content-Type": "application/json",
+          Athorization: `Bearer ${getters.getToken}`,
+        },
+      });
       commit("setProducts", response);
     } catch (error) {
       console.log(error);
@@ -52,6 +57,19 @@ export default {
         },
       });
       commit("setFamilies", response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async getDepartments({ commit, getters }) {
+    try {
+      const response = await this.$axios.$get(`${apiBase}Departments`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
+        },
+      });
+      commit("setDepartments", response);
     } catch (error) {
       console.log(error);
     }

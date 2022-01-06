@@ -27,8 +27,9 @@ export default {
     state.products = payload;
   },
   setFamilies: (state, payload) => {
-    console.log("mutations");
-    console.log(payload);
     state.families = payload;
+  },
+  setDepartments: (state, payload) => {
+    state.departments = payload;
   },
 };

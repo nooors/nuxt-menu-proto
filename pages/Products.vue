@@ -1,12 +1,22 @@
 <template>
   <div>
     <h1>Products</h1>
-    <li v-for="(value, key, index) in products" :key="index">
-      <pre>
-    {{ key }}{{ value }}
-    </pre
-      >
-    </li>
+    <v-row class="d-flex">
+      <v-col>
+        <pre>
+        {{ products }}
+        </pre>
+      </v-col>
+      <v-col>
+        <li v-for="product in products" :key="product.id">
+          <pre>
+    {{ product.family.name }} {{ product.ptypes.name }} {{
+              product.departaments.name
+            }} {{ product.shortNames }}
+          </pre>
+        </li>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
