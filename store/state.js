@@ -9,4 +9,5 @@ export default () => ({
   families: [],
   departments: [],
   token: null,
+  user: null,
 });

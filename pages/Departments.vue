@@ -106,7 +106,6 @@ export default {
   data() {
     return {
       departments: [],
-
       families: [],
       fab: true,
       menu: false,

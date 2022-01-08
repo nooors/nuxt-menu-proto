@@ -1,6 +1,9 @@
 export default {
-  setUsers: (state, payload) => {
-    state.users = payload;
+  setUser: (state, payload) => {
+    state.user = payload;
+    localStorage.setItem("user", payload.User);
+    localStorage.setItem("role", payload.Admin);
+    localStorage.setItem("email", payload.email);
   },
   setMenu: (state, payload) => {
     state.menu = payload;

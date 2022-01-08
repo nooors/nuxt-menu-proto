@@ -1,22 +1,22 @@
 <template>
   <v-container>
-    <h1 class="mb-5">Families</h1>
+    <h1 class="mb-5">{{ contentName }}</h1>
     <div class="d-flex flex-column">
       <v-card
         class="mb-7"
         shaped
         elevation="10"
-        v-for="family in families"
-        :key="family.id"
+        v-for="contentItem in contentItems"
+        :key="contentItem.id"
         max-width="200"
       >
         <v-card-text class="text-center body-1">
-          {{ family.name }}
+          {{ contentItem.name }}
         </v-card-text>
         <v-card-actions class="mb-3">
           <v-fab-transition>
             <v-menu
-              :v-model="menu[family.id]"
+              :v-model="menu[contentItem.id]"
               :close-on-content-click="false"
               nudge-width="200"
               offset-x
@@ -42,8 +42,8 @@
               <v-card shaped class="pa-3">
                 <v-form ref="family-form">
                   <v-text-field
-                    v-model="family.name"
-                    :value="family.name"
+                    v-model="contentItem.name"
+                    :value="contentItem.name"
                   ></v-text-field>
                 </v-form>
                 <v-card-actions>
@@ -55,7 +55,7 @@
                     bottom
                     right
                     x-small
-                    @click="deleteFamily(family.id)"
+                    @click="deleteFamily(content.id)"
                   >
                     <v-icon>mdi-delete</v-icon>
                   </v-btn>
@@ -157,6 +157,7 @@
 
 <script>
 export default {
+  props: ["contentName", "contentItem", "contentItems", "getContent"],
   data() {
     return {
       families: [],
@@ -170,8 +171,8 @@ export default {
     };
   },
   async fetch() {
-    await this.$store.dispatch("getFamilies");
-    this.families = this.$store.getters.getFamilies.map((a) => {
+    await this.$store.dispatch("getContent");
+    this.contentItems = this.getContent.map((a) => {
       return { ...a };
     });
   },

@@ -10,7 +10,7 @@
                   type="button"
                   class="v-btn v-btn--icon v-btn--round theme--light v-size--default"
                   aria-label="invert-example-colors"
-                  @click="$vuetify.theme.dark"
+                  @click="checkTheme"
                 >
                   <v-icon>
                     mdi-invert-colors
@@ -29,6 +29,11 @@
 <script>
 export default {
   name: "authenticate",
+  methods: {
+    checkTheme: function () {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
+  },
 };
 </script>
 

@@ -55,7 +55,6 @@ export default {
   data: () => ({
     fav: true,
     menu: false,
-    message: false,
     hints: true,
   }),
 };

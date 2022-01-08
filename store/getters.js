@@ -1,9 +1,13 @@
 export default {
-  getToken(state) {
-    return state.token;
-  },
   getMenu(state) {
     return state.menu;
+  },
+  getUser() {
+    return {
+      user: localStorage.getItem("user"),
+      role: localStorage.getItem("role"),
+      email: localStorage.getItem("email"),
+    };
   },
   getLanguages(state) {
     return state.languages;

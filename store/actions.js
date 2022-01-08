@@ -1,6 +1,5 @@
 import { parseJwt } from "~/utils/api";
 import { apiBase } from "~/utils/api";
-import { tokenApi } from "~/utils/api";
 
 export default {
   async Register(payload) {
@@ -20,8 +19,8 @@ export default {
       );
       let tokenParsed = parseJwt(response.token);
       commit("isLogged", response.token);
+      commit("setUser", tokenParsed);
       $router.push("/");
-      console.log("redirect");
     } catch (error) {
       alert(error);
     }
@@ -58,6 +57,23 @@ export default {
       });
       commit("setFamilies", response);
     } catch (error) {
+      console.log(error);
+    }
+  },
+  async addFamily({ getters }, payload) {
+    console.log(payload.name);
+    try {
+      const response = await this.$axios.$post(`${apiBase}Families`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      console.log("response");
+      console.log(response);
+    } catch (error) {
+      console.log("error");
       console.log(error);
     }
   },

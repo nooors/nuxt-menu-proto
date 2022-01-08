@@ -1,5 +1,5 @@
 <template>
-  <div class="login d-flex justify-center mt-16">
+  <div class="login d-flex justify-center mt-12">
     <v-card shaped elevation="10">
       <v-card-title>
         Register
@@ -120,9 +120,9 @@
             </v-col>
           </v-row>
         </v-card-text>
-        <v-divider></v-divider>
+
         <v-card-actions class="d-flex justify-end">
-          <v-btn class="mt-3" shaped elevation="10" @click="submit">
+          <v-btn class="mr-3" shaped elevation="10" @click="submit">
             Submit
           </v-btn>
         </v-card-actions>

@@ -37,6 +37,7 @@
       </v-btn> -->
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <the-avatar v-if="isLogged" />
       <v-icon left dark></v-icon
       ><v-switch
         v-model="$vuetify.theme.dark"
@@ -55,7 +56,9 @@
 </template>
 
 <script>
+import TheAvatar from "~/components/TheAvatar.vue";
 export default {
+  components: { TheAvatar },
   name: "DefaultLayout",
   middleware: "auth",
   data() {
@@ -126,6 +129,11 @@ export default {
           icon: "mdi-logout ",
           title: "Log Out",
           to: "/LogOut",
+        },
+        {
+          icon: "mdi-vuetify ",
+          title: "Pruebas",
+          to: "/ComponentTester",
         }
       );
     }

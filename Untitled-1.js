@@ -3,7 +3,7 @@ fetch("https://menuproto.ddns.net/api/Families", {
   headers: {
     accept: "*/*",
     "Content-Type": "application/json",
-    Authoritation:
+    Authorization:
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vb29yc0BnbWFpbC5jb20iLCJQcnVlYmEiOiJlc1BydWViYSIsImV4cCI6MTY0MTM3MjM5Mn0.-D6FIE5KvrJWJAgmh0Zp2xVmbU2U7p9tcuG9qpc-3_I",
   },
 })
@@ -22,7 +22,17 @@ fetch("https://menuproto.ddns.net/api/Families", {
   .then((res) => res.json())
   .then((e) => console.log(e));
 
-[
+const data = { id: 6, name: "Postres" };
+fetch("https://menuproto.ddns.net/api/Families", {
+  method: "POST",
+  headers: {
+    accept: "*/*",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(data),
+});
+
+const departments = [
   {
     id: 1,
     family: {
