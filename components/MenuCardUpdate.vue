@@ -24,34 +24,13 @@
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </template>
-      <v-card shaped class="pa-3">
-        <v-form ref="family-form">
-          <v-text-field
-            v-model="family.name"
-            :value="family.name"
-          ></v-text-field>
-        </v-form>
-        <v-card-actions>
-          <v-btn
-            color="pink"
-            fab
-            dark
-            absolute
-            bottom
-            right
-            x-small
-            @click="deleteFamily(family.id)"
-          >
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <slot name="menu-content"></slot>
     </v-menu>
   </div>
 </template>
 <script>
 export default {
-  name: "TheMenu",
+  name: "MenuCardUpdate",
   data: () => ({
     fav: true,
     menu: false,

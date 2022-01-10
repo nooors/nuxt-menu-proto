@@ -8,7 +8,7 @@
       </v-card-text>
       <v-card-actions class="mb-3">
         <v-fab-transition>
-          <the-menu></the-menu>
+          <slot name="menu-activator"> </slot>
         </v-fab-transition>
       </v-card-actions>
     </v-card>
@@ -16,9 +16,7 @@
 </template>
 
 <script>
-import TheMenu from "./TheMenu.vue";
 export default {
-  components: { TheMenu },
   name: "TheCard",
   props: ["name", "menu"],
 };

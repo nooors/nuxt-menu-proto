@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>component</h1>
+    <h1>Tester Component</h1>
     <nuxt-link to="ComponentTester/Tester">nuxt-link</nuxt-link>
   </div>
 </template>

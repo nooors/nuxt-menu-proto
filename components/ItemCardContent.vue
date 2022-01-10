@@ -2,14 +2,7 @@
   <v-container>
     <h1 class="mb-5">{{ contentName }}</h1>
     <div class="d-flex flex-column">
-      <v-card
-        class="mb-7"
-        shaped
-        elevation="10"
-        v-for="contentItem in contentItems"
-        :key="contentItem.id"
-        max-width="200"
-      >
+      <v-card class="mb-7" shaped elevation="10" max-width="200">
         <v-card-text class="text-center body-1">
           {{ contentItem.name }}
         </v-card-text>
@@ -157,7 +150,7 @@
 
 <script>
 export default {
-  props: ["contentName", "contentItem", "contentItems", "getContent"],
+  props: ["contentItemName", "contentItem", "contentItems"],
   data() {
     return {
       families: [],
@@ -170,12 +163,7 @@ export default {
       newFamily: "",
     };
   },
-  async fetch() {
-    await this.$store.dispatch("getContent");
-    this.contentItems = this.getContent.map((a) => {
-      return { ...a };
-    });
-  },
+
   methods: {
     deleteFamily: function (id) {
       if (this.families.length > 0) {

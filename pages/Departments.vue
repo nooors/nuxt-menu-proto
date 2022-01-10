@@ -1,13 +1,70 @@
 <template>
   <v-container>
-    <h1 class="mb-5">Departaments</h1>
+    <h1 class="mb-5">Families</h1>
     <div class="d-flex flex-column">
-      <the-card
-        v-for="department in departments"
-        :key="department.id"
-        :name="department.name"
-        :menu="menu[department.id]"
-      ></the-card>
+      <v-card
+        class="mb-7"
+        shaped
+        elevation="10"
+        v-for="family in families"
+        :key="family.id"
+        max-width="200"
+      >
+        <v-card-text class="text-center body-1">
+          {{ family.name }}
+        </v-card-text>
+        <v-card-actions class="mb-3">
+          <v-fab-transition>
+            <v-menu
+              :v-model="menu[family.id]"
+              :close-on-content-click="false"
+              nudge-width="200"
+              offset-x
+              persistent
+              allow-overflow
+              shaped
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="pink"
+                  fab
+                  dark
+                  x-small
+                  absolute
+                  bottom
+                  right
+                  v-on="on"
+                  v-bind="attrs"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+              <v-card shaped class="pa-3">
+                <v-form ref="family-form">
+                  <v-text-field
+                    v-model="family.name"
+                    :value="family.name"
+                  ></v-text-field>
+                </v-form>
+                <v-card-actions>
+                  <v-btn
+                    color="pink"
+                    fab
+                    dark
+                    absolute
+                    bottom
+                    right
+                    x-small
+                    @click="deleteFamily(family.id)"
+                  >
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-menu>
+          </v-fab-transition>
+        </v-card-actions>
+      </v-card>
     </div>
     <v-row class="d-flex justify-end mr-5">
       <v-tooltip top>
@@ -99,13 +156,9 @@
 </template>
 
 <script>
-import TheCard from "~/components/TheCard.vue";
-import TheMenu from "~/components/TheMenu.vue";
 export default {
-  components: { TheMenu, TheCard },
   data() {
     return {
-      departments: [],
       families: [],
       fab: true,
       menu: false,
@@ -117,17 +170,49 @@ export default {
     };
   },
   async fetch() {
-    await this.$store.dispatch("getDepartments");
-    this.departments = this.$store.getters.getDepartments.map((a) => {
+    await this.$store.dispatch("getFamilies");
+    this.families = this.$store.getters.getFamilies.map((a) => {
       return { ...a };
     });
   },
   methods: {
-    discardChanges: function () {},
-    addNewFamily: function () {},
-    saveChanges: function () {},
+    deleteFamily: function (id) {
+      if (this.families.length > 0) {
+        this.families.splice(
+          this.families.findIndex((element) => element.id === id),
+          1
+        );
+      }
+    },
+    saveChanges: function () {
+      alert("save");
+    },
+    discardChanges: function () {
+      alert("discard");
+    },
+    addNewFamily: function () {
+      alert("newFamily");
+      const keys = [];
+      this.families.every((element) => keys.push(element.id));
+      keys.sort((a, b) => a - b);
+      this.families.push({
+        id: keys[keys.length - 1] + 1,
+        name: this.newFamily,
+      });
+      this.$store.dispatch("addFamily", {
+        id: keys[keys.length - 1] + 1,
+        name: this.newFamily,
+      });
+      this.$fetch();
+      this.dialog = false;
+    },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.v-menu__content {
+  overflow: unset;
+  contain: unset;
+}
+</style>
