@@ -24,6 +24,9 @@ export default {
   getFamilies(state) {
     return state.families;
   },
+  getFamilyById(state) {
+    return state.familyId;
+  },
   getDepartments(state) {
     return state.departments;
   },

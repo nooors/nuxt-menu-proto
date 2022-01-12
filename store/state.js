@@ -7,6 +7,7 @@ export default () => ({
   isLogged: false,
   products: [],
   families: [],
+  familyId: null,
   departments: [],
   token: null,
   user: null,

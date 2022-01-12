@@ -32,6 +32,9 @@ export default {
   setFamilies: (state, payload) => {
     state.families = payload;
   },
+  setFamilyId: (state, payload) => {
+    state.familyId = payload;
+  },
   setDepartments: (state, payload) => {
     state.departments = payload;
   },

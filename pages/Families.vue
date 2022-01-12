@@ -178,10 +178,8 @@ export default {
   methods: {
     deleteFamily: function (id) {
       if (this.families.length > 0) {
-        this.families.splice(
-          this.families.findIndex((element) => element.id === id),
-          1
-        );
+        this.$store.dispatch("getFamilyById", id);
+        alert(this.$store.getters.getFamilyById);
       }
     },
     saveChanges: function () {
@@ -192,17 +190,7 @@ export default {
     },
     addNewFamily: function () {
       alert("newFamily");
-      const keys = [];
-      this.families.every((element) => keys.push(element.id));
-      keys.sort((a, b) => a - b);
-      this.families.push({
-        id: keys[keys.length - 1] + 1,
-        name: this.newFamily,
-      });
-      this.$store.dispatch("addFamily", {
-        id: keys[keys.length - 1] + 1,
-        name: this.newFamily,
-      });
+      this.$store.dispatch("addFamily", this.newFamily);
       this.$fetch();
       this.dialog = false;
     },

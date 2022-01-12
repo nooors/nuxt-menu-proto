@@ -60,20 +60,32 @@ export default {
       console.log(error);
     }
   },
-  async addFamily({ getters }, payload) {
-    console.log(payload.name);
+  async getFamilyById({ commit, getters }, id) {
     try {
-      const response = await this.$axios.$post(`${apiBase}Families`, {
+      const response = await this.$axios.$get(`${apiBase}Families/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getters.getToken}`,
         },
-        body: JSON.stringify(payload),
       });
-      console.log("response");
+      commit("setFamilyId", response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async addFamily({ getters }, payload) {
+    try {
+      const response = await this.$axios.$post(`${apiBase}Families/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
+        },
+        body: {
+          name: payload,
+        },
+      });
       console.log(response);
     } catch (error) {
-      console.log("error");
       console.log(error);
     }
   },
