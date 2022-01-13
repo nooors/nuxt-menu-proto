@@ -16,6 +16,11 @@
           </pre>
         </li>
       </v-col>
+      <v-col>
+        <li v-for="(key, index) in keys" :key="index">
+          {{ key }}
+        </li>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -24,13 +29,16 @@
 export default {
   data() {
     return {
-      products: null,
+      products: [],
+      keys: [],
     };
   },
   async fetch() {
     console.log("products");
     await this.$store.dispatch("getProducts");
     this.products = this.$store.getters.getProducts;
+    console.log(Array.isArray(this.products));
+    this.keys = this.products.array.forEach((element) => element.keys());
   },
 };
 </script>

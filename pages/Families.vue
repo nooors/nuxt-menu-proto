@@ -171,15 +171,27 @@ export default {
   },
   async fetch() {
     await this.$store.dispatch("getFamilies");
-    this.families = this.$store.getters.getFamilies.map((a) => {
-      return { ...a };
-    });
+  },
+  computed: {
+    familiesStore: function () {
+      return this.$store.getters.getFamilies;
+    },
+  },
+  watch: {
+    familiesStore: function () {
+      this.families = this.$store.getFamilies.getFamilies.map((a) => {
+        return { ...a };
+      });
+    },
   },
   methods: {
     deleteFamily: function (id) {
       if (this.families.length > 0) {
-        this.$store.dispatch("getFamilyById", id);
-        alert(this.$store.getters.getFamilyById);
+        let payload = this.families.filter((family) => {
+          return family.id == id;
+        });
+        this.$store.dispatch("deleteFamily", payload);
+        // alert(this.$store.getters.getFamilyById);
       }
     },
     saveChanges: function () {
@@ -191,7 +203,7 @@ export default {
     addNewFamily: function () {
       alert("newFamily");
       this.$store.dispatch("addFamily", this.newFamily);
-      this.$fetch();
+      this.newFamily = "";
       this.dialog = false;
     },
   },

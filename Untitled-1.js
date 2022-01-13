@@ -4,33 +4,51 @@ fetch("https://menuproto.ddns.net/api/Families", {
     accept: "*/*",
     "Content-Type": "application/json",
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vb29yc0BnbWFpbC5jb20iLCJQcnVlYmEiOiJlc1BydWViYSIsImV4cCI6MTY0MTM3MjM5Mn0.-D6FIE5KvrJWJAgmh0Zp2xVmbU2U7p9tcuG9qpc-3_I",
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vb29yc0BnbWFpbC5jb20iLCJBZG1pbiI6IkFkbWluIiwiVXNlciI6IlVzZXIiLCJleHAiOjE2NDIxNTI4MDh9.5snGEX2r2-Dm4H8AUgI9RwE0FLA4J4bnP5sm6PCkFUY",
   },
 })
   .then((res) => res.json())
   .then((e) => console.log(e));
 
-fetch("https://menuproto.ddns.net/api/Families", {
+fetch("https://menuproto.ddns.net/api/Departments", {
   method: "GET",
   headers: {
     accept: "*/*",
     "Content-Type": "application/json",
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vb29yc0BnbWFpbC5jb20iLCJQcnVlYmEiOiJlc1BydWViYSIsImV4cCI6MTY0MTM3MjM5Mn0.-D6FIE5KvrJWJAgmh0Zp2xVmbU2U7p9tcuG9qpc-3_I",
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vb29yc0BnbWFpbC5jb20iLCJBZG1pbiI6IkFkbWluIiwiVXNlciI6IlVzZXIiLCJleHAiOjE2NDIxNTI4MDh9.5snGEX2r2-Dm4H8AUgI9RwE0FLA4J4bnP5sm6PCkFUY",
   },
 })
   .then((res) => res.json())
   .then((e) => console.log(e));
 
-const data = { id: 6, name: "Postres" };
 fetch("https://menuproto.ddns.net/api/Families", {
+  data: { name: "Sugerencias" },
   method: "POST",
   headers: {
     accept: "*/*",
     "Content-Type": "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vb29yc0BnbWFpbC5jb20iLCJBZG1pbiI6IkFkbWluIiwiVXNlciI6IlVzZXIiLCJleHAiOjE2NDIxNTI4MDh9.5snGEX2r2-Dm4H8AUgI9RwE0FLA4J4bnP5sm6PCkFUY",
   },
-  body: JSON.stringify(data),
-});
+})
+  .then((res) => res.json())
+  .then((e) => console.log(e));
+
+fetch("https://menuproto.ddns.net/api/Families", {
+  method: "DELETE",
+  headers: {
+    accept: "*/*",
+    "Content-Type": "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vb29yc0BnbWFpbC5jb20iLCJBZG1pbiI6IkFkbWluIiwiVXNlciI6IlVzZXIiLCJleHAiOjE2NDE5MDM4OTN9.UBmuYIIhCe0xXRXSshSR6z5oZH_boDcFSheEBje_540",
+  },
+  body: JSON.stringify({
+    name: "Postres",
+  }),
+})
+  .then((res) => res.json())
+  .then((e) => console.log(e));
 
 const departments = [
   {

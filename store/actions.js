@@ -73,17 +73,43 @@ export default {
       console.log(error);
     }
   },
-  async addFamily({ getters }, payload) {
+  async addFamily({ getters, dispatch }, payload) {
     try {
-      const response = await this.$axios.$post(`${apiBase}Families/`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getters.getToken}`,
-        },
-        body: {
+      const response = await this.$axios.$post(
+        `${apiBase}Families`,
+        {
           name: payload,
         },
-      });
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getters.getToken}`,
+          },
+        }
+      );
+      console.log(response);
+      dispatch("getFamilies");
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async deleteFamily({ getters }, payload) {
+    console.log(payload[0].id);
+    console.log(payload[0].name);
+    try {
+      const response = await this.$axios.$delete(
+        `${apiBase}Families`,
+        {
+          id: payload[0].id,
+          name: payload[0].name,
+        },
+        {
+          headers: {
+            "Const-Type": "application/json",
+            Authorization: `Bearer ${getters.getToken}`,
+          },
+        }
+      );
       console.log(response);
     } catch (error) {
       console.log(error);

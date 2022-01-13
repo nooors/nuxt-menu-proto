@@ -171,9 +171,18 @@ export default {
   },
   async fetch() {
     await this.$store.dispatch("getFamilies");
-    this.families = this.$store.getters.getFamilies.map((a) => {
-      return { ...a };
-    });
+  },
+  computed: {
+    familiesStore: function () {
+      return this.$store.getters.getFamilies;
+    },
+  },
+  watch: {
+    familiesStore: function () {
+      this.families = this.$store.getters.getFamilies.map((a) => {
+        return { ...a };
+      });
+    },
   },
   methods: {
     deleteFamily: function (id) {
@@ -192,18 +201,7 @@ export default {
     },
     addNewFamily: function () {
       alert("newFamily");
-      const keys = [];
-      this.families.every((element) => keys.push(element.id));
-      keys.sort((a, b) => a - b);
-      this.families.push({
-        id: keys[keys.length - 1] + 1,
-        name: this.newFamily,
-      });
-      this.$store.dispatch("addFamily", {
-        id: keys[keys.length - 1] + 1,
-        name: this.newFamily,
-      });
-      this.$fetch();
+      this.$store.dispatch("addFamily", this.newFamily);
       this.dialog = false;
     },
   },
