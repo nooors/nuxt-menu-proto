@@ -1,6 +1,6 @@
 export default () => ({
   authenticate: false,
-  users: [],
+  Users: null,
   menu: null,
   languages: ["Español", "Català", "English"],
   languageSelected: 0,
@@ -8,6 +8,8 @@ export default () => ({
   products: [],
   families: [],
   familyId: null,
+  ptypes: [],
+  ptypeId: null,
   departments: [],
   token: null,
   user: null,

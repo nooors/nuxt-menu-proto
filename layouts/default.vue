@@ -102,6 +102,11 @@ export default {
           title: "Colors",
           to: "/Colors",
         },
+        {
+          icon: "mdi-set-none",
+          title: "Product Types",
+          to: "/PTypes",
+        },
       ],
       miniVariant: false,
       right: true,
@@ -134,6 +139,11 @@ export default {
           icon: "mdi-vuetify ",
           title: "Pruebas",
           to: "/ComponentTester",
+        },
+        {
+          icon: "mdi-account-outline",
+          title: "Users",
+          to: "/Users",
         }
       );
     }

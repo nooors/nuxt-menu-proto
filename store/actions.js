@@ -26,10 +26,28 @@ export default {
     }
   },
 
+  logOut({ commit }) {
+    commit("LogOut");
+  },
+
   async getMenu({ commit }) {
     try {
       const response = await this.$axios.$get(`${apiBase}menu`);
       commit("setMenu", response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async getUsers({ commit, getters }) {
+    alert("getting users");
+    try {
+      const response = await this.$axios.$get(`${apiBase}Accounts`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
+        },
+      });
+      commit("setUsers", response);
     } catch (error) {
       console.log(error);
     }
@@ -93,15 +111,14 @@ export default {
       console.log(error);
     }
   },
-  async deleteFamily({ getters }, payload) {
-    console.log(payload[0].id);
-    console.log(payload[0].name);
+
+  async updateFamily({ getters, dispatch }, payload) {
     try {
-      const response = await this.$axios.$delete(
+      const response = await this.$axios.$put(
         `${apiBase}Families`,
         {
-          id: payload[0].id,
-          name: payload[0].name,
+          id: payload.id,
+          name: payload.name,
         },
         {
           headers: {
@@ -110,6 +127,106 @@ export default {
           },
         }
       );
+      console.log(response);
+      dispatch("getFamilies");
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async deleteFamily({ getters, dispatch }, id) {
+    try {
+      const response = await this.$axios.delete(
+        `${apiBase}Families/?Id=${id}`,
+        {
+          headers: {
+            "Const-Type": "application/json",
+            Authorization: `Bearer ${getters.getToken}`,
+          },
+        }
+      );
+      dispatch("getFamilies");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async getPtypes({ commit, getters }) {
+    try {
+      const response = await this.$axios.$get(`${apiBase}PTypes`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
+        },
+      });
+      commit("setPtypes", response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async getPtypeId({ commit, getters }, id) {
+    try {
+      const response = await this.$axios.$get(`${apiBase}PTypes/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
+        },
+      });
+      commit("setPtypeId", response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async addPtypes({ getters, dispatch }, payload) {
+    try {
+      const response = await this.$axios.$post(
+        `${apiBase}Ptypes`,
+        {
+          name: payload,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getters.getToken}`,
+          },
+        }
+      );
+      console.log(response);
+      dispatch("getPtypes");
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async updatePtypes({ getters, dispatch }, payload) {
+    try {
+      const response = await this.$axios.$put(
+        `${apiBase}PTypes`,
+        {
+          id: payload.id,
+          name: payload.name,
+        },
+        {
+          headers: {
+            "Const-Type": "application/json",
+            Authorization: `Bearer ${getters.getToken}`,
+          },
+        }
+      );
+      console.log(response);
+      dispatch("getPtypes");
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async deleteFamily({ getters, dispatch }, id) {
+    try {
+      const response = await this.$axios.delete(`${apiBase}PTypes/?Id=${id}`, {
+        headers: {
+          "Const-Type": "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
+        },
+      });
+      dispatch("getPtypes");
       console.log(response);
     } catch (error) {
       console.log(error);

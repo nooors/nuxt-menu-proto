@@ -1,33 +1,27 @@
 <template>
-  <div>
-    <content-layout :layoutName="contentLayout.name">
-      <template v-slot:content-layout>
-        <the-card
-          v-for="item in theCard.items"
-          :key="item.id"
-          :name="item.name"
-        >
-          <template v-slot:menu-activator>
-            <menu-card-update>
-              <template v-slot:menu-content>
-                <card-update
-                  :cardModel="item.name"
-                  :cardName="item.name"
-                  @deleteItem="deleteDepartment(item.id)"
-                ></card-update>
-              </template>
-            </menu-card-update>
-          </template>
-        </the-card>
-      </template>
-      <template v-slot:buttons-layout>
-        <tooltip-button
-          :icon="tooltip.icon"
-          :title="tooltip.title"
-        ></tooltip-button>
-      </template>
-    </content-layout>
-  </div>
+  <content-layout :layoutName="contentLayout.name">
+    <template v-slot:content-layout>
+      <the-card v-for="item in theCard.items" :key="item.id" :name="item.name">
+        <template v-slot:menu-activator>
+          <menu-card-update>
+            <template v-slot:menu-content>
+              <card-update
+                :cardModel="item.name"
+                :cardName="item.name"
+                @deleteItem="deleteDepartment(item.id)"
+              ></card-update>
+            </template>
+          </menu-card-update>
+        </template>
+      </the-card>
+    </template>
+    <template v-slot:buttons-layout>
+      <tooltip-button
+        :icon="tooltip.icon"
+        :title="tooltip.title"
+      ></tooltip-button>
+    </template>
+  </content-layout>
 </template>
 
 <script>

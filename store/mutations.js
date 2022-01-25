@@ -5,6 +5,9 @@ export default {
     localStorage.setItem("role", payload.Admin);
     localStorage.setItem("email", payload.email);
   },
+  setUsers: (state, payload) => {
+    state.Users = payload;
+  },
   setMenu: (state, payload) => {
     state.menu = payload;
   },
@@ -18,6 +21,8 @@ export default {
   },
   logOut: (state) => {
     state.isLogged = false;
+    state.token = "";
+    state.urer = null;
     localStorage.clear();
   },
   setAuthenticate: (state) => {
@@ -34,6 +39,12 @@ export default {
   },
   setFamilyId: (state, payload) => {
     state.familyId = payload;
+  },
+  setPtypes: (state, payload) => {
+    state.ptypes = payload;
+  },
+  setPtypeId: (state, payload) => {
+    state.ptypeId = payload;
   },
   setDepartments: (state, payload) => {
     state.departments = payload;

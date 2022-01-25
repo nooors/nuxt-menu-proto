@@ -1,3 +1,5 @@
+import state from "./state";
+
 export default {
   getMenu(state) {
     return state.menu;
@@ -8,6 +10,9 @@ export default {
       role: localStorage.getItem("role"),
       email: localStorage.getItem("email"),
     };
+  },
+  getUsers(state) {
+    return state.Users;
   },
   getLanguages(state) {
     return state.languages;
@@ -26,6 +31,12 @@ export default {
   },
   getFamilyById(state) {
     return state.familyId;
+  },
+  getPtypes(state) {
+    return state.ptypes;
+  },
+  getPtypeById(state) {
+    return state.ptypeId;
   },
   getDepartments(state) {
     return state.departments;

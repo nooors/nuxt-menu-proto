@@ -5,8 +5,7 @@
     @addNewItem="addNewFamily"
     @updateItem="updateFamily"
     @deleteItem="deleteFamily"
-  >
-  </item-content-layout>
+  ></item-content-layout>
 </template>
 
 <script>
@@ -38,6 +37,7 @@ export default {
   },
   methods: {
     addNewFamily: function (payload) {
+      alert("newFamily");
       this.$store.dispatch("addFamily", payload);
     },
     updateFamily: function (id, name) {
@@ -48,19 +48,10 @@ export default {
         this.$store.dispatch("deleteFamily", id).catch(() => {
           console.log("dispatch-error");
         });
-        // alert(this.$store.getters.getFamilyById);
       }
     },
   },
 };
 </script>
 
-<style scoped>
-v-container {
-  height: 90vh;
-}
-.v-menu__content {
-  overflow: unset;
-  contain: unset;
-}
-</style>
+<style></style>
