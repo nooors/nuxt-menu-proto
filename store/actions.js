@@ -20,7 +20,6 @@ export default {
       let tokenParsed = parseJwt(response.token);
       commit("isLogged", response.token);
       commit("setUser", tokenParsed);
-      $router.push("/");
     } catch (error) {
       alert(error);
     }
