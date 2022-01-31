@@ -6,9 +6,13 @@
           <menu-card-update>
             <template v-slot:menu-content>
               <card-update
-                :cardModel="item.name"
                 :cardName="item.name"
+                @setModel="cardModel = item.name"
                 @deleteItem="deleteDepartment(item.id)"
+                ><template v-slot:card-content>
+                  <v-form>
+                    <v-text-field :value="item.name"> </v-text-field>
+                  </v-form> </template
               ></card-update>
             </template>
           </menu-card-update>
@@ -19,6 +23,7 @@
       <tooltip-button
         :icon="tooltip.icon"
         :title="tooltip.title"
+        @addItem="addNewItem"
       ></tooltip-button>
     </template>
   </content-layout>
@@ -48,10 +53,12 @@ export default {
       contentLayout: {
         name: "Departments",
       },
-      cardUpdate: {},
+      cardUpdate: {
+        model: "",
+      },
       tooltip: {
-        icon: "mdi-close",
-        title: "discard-changes",
+        icon: "mdi-plus",
+        title: "Add New Item",
       },
     };
   },
@@ -62,6 +69,13 @@ export default {
   methods: {
     deleteDepartment: function (id) {
       alert(`Delete Department id: ${id}`);
+    },
+    setModel: function (payload) {
+      alert("custom event");
+      this.cardUpdate.model = payload;
+    },
+    addNewItem: function () {
+      alert("new Item");
     },
   },
 };

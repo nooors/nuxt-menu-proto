@@ -2,13 +2,31 @@ import { parseJwt } from "~/utils/api";
 import { apiBase } from "~/utils/api";
 
 export default {
-  async Register(payload) {
+  async Register({ getters }, payload) {
     try {
-      const response = await this.$axios.$post(apiBase, payload);
+      const response = await this.$axios.$post(
+        `${apiBase}Accounts/register`,
+        {
+          eMail: payload.email,
+          password: payload.password,
+          phoneNumber: payload.phone,
+          role: payload.rol,
+          name: payload.firstName,
+          surName: payload.lastName,
+          AvatarImagePath: "",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getters.getToken}`,
+          },
+        }
+      );
       //commit("setUsers", response);
       console.log(response);
-    } catch (error) {
-      console.log(error);
+      $nuxt.$router.push("/Users");
+    } catch (response) {
+      console.log(response);
     }
   },
   async login({ commit }, payload) {
@@ -38,7 +56,6 @@ export default {
     }
   },
   async getUsers({ commit, getters }) {
-    alert("getting users");
     try {
       const response = await this.$axios.$get(`${apiBase}Accounts`, {
         headers: {
@@ -134,15 +151,12 @@ export default {
   },
   async deleteFamily({ getters, dispatch }, id) {
     try {
-      const response = await this.$axios.delete(
-        `${apiBase}Families/?Id=${id}`,
-        {
-          headers: {
-            "Const-Type": "application/json",
-            Authorization: `Bearer ${getters.getToken}`,
-          },
-        }
-      );
+      const response = await this.$axios.delete(`${apiBase}Families/${id}`, {
+        headers: {
+          "Const-Type": "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
+        },
+      });
       dispatch("getFamilies");
       console.log(response);
     } catch (error) {
@@ -217,9 +231,9 @@ export default {
       console.log(error);
     }
   },
-  async deleteFamily({ getters, dispatch }, id) {
+  async deletePty({ getters, dispatch }, id) {
     try {
-      const response = await this.$axios.delete(`${apiBase}PTypes/?Id=${id}`, {
+      const response = await this.$axios.delete(`${apiBase}PTypes/?id=${id}`, {
         headers: {
           "Const-Type": "application/json",
           Authorization: `Bearer ${getters.getToken}`,

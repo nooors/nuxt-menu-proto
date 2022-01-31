@@ -23,10 +23,24 @@
 <script>
 export default {
   name: "CardUpdate",
-  props: ["cardModel", "cardName"],
+  props: ["cardName"],
+  data() {
+    return {
+      cardModel: "",
+    };
+  },
   methods: {
     deleteItem: function () {
       this.$emit("deleteItem");
+    },
+  },
+  watch: {
+    cardModel: {
+      inmediate: true,
+      deep: true,
+      handler: function () {
+        this.$emit(`setModel`, this.cardModel);
+      },
     },
   },
 };

@@ -1,14 +1,14 @@
 <template>
   <v-tooltip top>
-    <template v-slot:activator="{ on, close }">
+    <template v-slot:activator="{ on, addItem }">
       <v-btn
         color="pink"
         fab
         medium
         dark
-        v-bind="close"
+        v-bind="addItem"
         v-on="on"
-        @click="discardChanges"
+        @click="addNewItem"
         class="mr-2"
       >
         <v-icon>{{ icon }}</v-icon>
@@ -21,6 +21,11 @@
 <script>
 export default {
   props: ["icon", "title"],
+  methods: {
+    addNewItem: function () {
+      this.$emit("addItem");
+    },
+  },
 };
 </script>
 

@@ -5,4 +5,4 @@ mock up families page. Maybe with dialogs (modals)
 
 # TODO
 
-Post request newFamily does not work, body request seems to be wrong
+Regex for password field in Register.vue

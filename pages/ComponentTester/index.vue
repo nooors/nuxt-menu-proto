@@ -5,6 +5,7 @@
     <nuxt-link to="ComponentTester/ItemContentLayout"
       >Item Content Layout</nuxt-link
     >
+    <nuxt-link to="ComponentTester/users">Users</nuxt-link>
   </div>
 </template>
 

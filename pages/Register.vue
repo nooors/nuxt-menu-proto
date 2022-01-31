@@ -1,7 +1,7 @@
 <template>
   <div class="login d-flex justify-center mt-12">
     <v-card shaped elevation="10">
-      <v-card-title>
+      <v-card-title class="ml-5">
         Register
       </v-card-title>
       <v-divider></v-divider>
@@ -61,6 +61,7 @@
                 value=""
                 v-model="dataValues.phone"
                 class="input-group--focused"
+                counter="9"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -85,6 +86,7 @@
                 hint="upload a profile photo"
                 accept="image/png, image/jpeg, image/bmp"
                 class="input-group--focused"
+                disabled
               ></v-file-input>
             </v-col>
           </v-row>
