@@ -137,6 +137,7 @@ export default {
     "valueEmail",
     "valuePhone",
     "valueRole",
+    "valuePhoto",
   ],
   data() {
     return {
@@ -173,6 +174,8 @@ export default {
     this.dataValues.lastName = this.valueLastName;
     this.dataValues.firstName = this.valueName;
     this.dataValues.rol = this.valueRole;
+    this.dataValues.phone = this.valuePhone;
+    this.dataValues.password = this.valuePassword;
   },
   methods: {
     submit() {

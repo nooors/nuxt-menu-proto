@@ -68,6 +68,31 @@ export default {
       console.log(error);
     }
   },
+  async updateUser({ getters, dispatch }, payload) {
+    try {
+      const response = await this.$axios.$put(
+        `${apiBase}Accounts`,
+        {
+          userName: payload.email,
+          name: payload.firstName,
+          surName: payload.lastName,
+          phoneNumber: payload.phone,
+          roles: payload.rol,
+          avatarImagePath: "",
+        },
+        {
+          headers: {
+            "Const-Type": "application/json",
+            Authorization: `Bearer ${getters.getToken}`,
+          },
+        }
+      );
+      dispatch("getUsers");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
   async getProducts({ commit, getters }) {
     try {
       const response = await this.$axios.$get(`${apiBase}Products`, {

@@ -51,36 +51,10 @@
                 :valueLastName="user.surName"
                 :valueEmail="user.userName"
                 :valuePhone="user.phoneNumber"
-                :valueRole="user.role"
-                @submit="updateUser(user.eMail)"
+                :valueRole="user.roles"
+                @submit="updateUser"
               ></user-form>
-              <v-card-actions>
-                <v-btn
-                  class="mr-10"
-                  color="pink"
-                  fab
-                  dark
-                  absolute
-                  bottom
-                  right
-                  x-small
-                  @click="updateItem(user.id, user.name)"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-                <v-btn
-                  color="pink"
-                  fab
-                  dark
-                  absolute
-                  bottom
-                  right
-                  x-small
-                  @click="deleteItem(user.id)"
-                >
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </v-card-actions>
+              <v-card-actions> </v-card-actions>
             </v-card>
           </v-menu>
         </v-fab-transition>
@@ -164,9 +138,9 @@ export default {
     addNewUser: function () {
       this.$router.push("/Register");
     },
-    updateUser: function (payload, email) {
-      alert("User payload");
-      console.log(payload, email);
+    updateUser: function (payload) {
+      console.log(payload);
+      this.$store.dispatch("updateUser", payload);
     },
 
     deleteUser(id) {
