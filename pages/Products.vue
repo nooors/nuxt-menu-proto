@@ -69,6 +69,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+        -->
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5"
@@ -116,7 +117,7 @@ export default {
         sortable: false,
         value: "name",
       },
-      { text: "Calories", value: "calories" },
+      { text: "family", value: "calories" },
       { text: "Fat (g)", value: "fat" },
       { text: "Carbs (g)", value: "carbs" },
       { text: "Protein (g)", value: "protein" },

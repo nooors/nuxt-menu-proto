@@ -106,6 +106,19 @@ export default {
       console.log(error);
     }
   },
+  async deleteProduct({ dispacth, getters }, id) {
+    try {
+      const response = await this.$axios.$delete(`${apiBase}Products/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
+        },
+      });
+      dispatch("getProducts");
+    } catch (error) {
+      console.log(error);
+    }
+  },
   async getFamilies({ commit, getters }) {
     try {
       const response = await this.$axios.$get(`${apiBase}Families`, {

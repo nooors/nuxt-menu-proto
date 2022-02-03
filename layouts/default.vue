@@ -98,11 +98,6 @@ export default {
           to: "/DailyMenu",
         },
         {
-          icon: "mdi-palette",
-          title: "Colors",
-          to: "/Colors",
-        },
-        {
           icon: "mdi-set-none",
           title: "Product Types",
           to: "/PTypes",
