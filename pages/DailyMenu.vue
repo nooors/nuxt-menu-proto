@@ -10,7 +10,7 @@
         <the-languages />
       </v-col>
     </v-row>
-    <the-daily-menu :menu="menuStore" :language="language" />
+    <the-daily-menu :menu="menu" :language="language" />
   </div>
 </template>
 
@@ -20,7 +20,7 @@ import TheLanguages from "~/components/TheLanguages.vue";
 export default {
   data() {
     return {
-      menuStore: null,
+      menu: null,
     };
   },
   components: { TheDailyMenu, TheLanguages },
@@ -35,6 +35,14 @@ export default {
   computed: {
     language: function () {
       return this.$store.getters.getLanguageSelected;
+    },
+    menuStore: function () {
+      return this.$store.getters.getMenu;
+    },
+  },
+  watch: {
+    menuStore: function () {
+      this.menu = this.$store.getters.getMenu;
     },
   },
 };

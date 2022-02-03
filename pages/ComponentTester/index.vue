@@ -8,6 +8,7 @@
     <nuxt-link to="ComponentTester/users">Users</nuxt-link>
     <nuxt-link to="ComponentTester/products">Products</nuxt-link>
     <nuxt-link to="ComponentTester/productsTable">Products Table</nuxt-link>
+    <nuxt-link to="ComponentTester/cardLanguages">Card Languages</nuxt-link>
   </div>
 </template>
 

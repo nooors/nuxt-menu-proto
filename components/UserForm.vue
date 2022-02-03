@@ -158,7 +158,7 @@ export default {
           return pattern.test(value) || "Invalid number.";
         },
       },
-      items: ["Admin", "User", "Guest"],
+      items: ["Admin", "User"],
       dataValues: {
         email: "",
         password: "",

@@ -49,4 +49,20 @@ export default {
   setDepartments: (state, payload) => {
     state.departments = payload;
   },
+  editShortName: (state, payload) => {
+    state.products[payload.index].shortNameCreateDTO[0].name =
+      payload.languages.spanish;
+    state.products[payload.index].shortNameCreateDTO[1].name =
+      payload.languages.catalan;
+    state.products[payload.index].shortNameCreateDTO[2].name =
+      payload.languages.english;
+  },
+  editDescription: (state, payload) => {
+    state.products[payload.index].descriptionDTOs[0].name =
+      payload.languages.spanish;
+    state.products[payload.index].descriptionDTOs[1].name =
+      payload.languages.catalan;
+    state.products[payload.index].descriptionDTOs[2].name =
+      payload.languages.english;
+  },
 };

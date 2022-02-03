@@ -49,7 +49,7 @@ export default {
 
   async getMenu({ commit }) {
     try {
-      const response = await this.$axios.$get(`${apiBase}menu`);
+      const response = await this.$axios.$get("http://localhost:3000/menu");
       commit("setMenu", response);
     } catch (error) {
       console.log(error);
@@ -106,7 +106,73 @@ export default {
       console.log(error);
     }
   },
-  async deleteProduct({ dispacth, getters }, id) {
+  async editProduct({ getters, dispatch }, product) {
+    alert("dipatch");
+    console.log(product);
+    try {
+      const response = await this.$axios.$put(
+        `${apiBase}Products`,
+
+        {
+          id: product.id,
+          familiesDTO: {
+            id: product.familiesDTO.id,
+            name: product.familiesDTO.name,
+          },
+          ptypesDTO: {
+            id: product.ptypesDTO.id,
+            name: product.ptypesDTO.name,
+          },
+          departmentsId: [product.departmentsDTO[0].id],
+          shortNameCreateDTO: [
+            {
+              id: product.shortNameCreateDTO[0].id,
+              name: product.shortNameCreateDTO[0].name,
+              lang: product.shortNameCreateDTO[0].lang,
+            },
+            {
+              id: product.shortNameCreateDTO[1].id,
+              name: product.shortNameCreateDTO[1].name,
+              lang: product.shortNameCreateDTO[1].lang,
+            },
+            {
+              id: product.shortNameCreateDTO[2].id,
+              name: product.shortNameCreateDTO[2].name,
+              lang: product.shortNameCreateDTO[2].lang,
+            },
+          ],
+          descriptionDTOs: [
+            {
+              id: product.descriptionDTOs[0].id,
+              name: product.descriptionDTOs[0].name,
+              lang: product.descriptionDTOs[0].lang,
+            },
+            {
+              id: product.descriptionDTOs[1].id,
+              name: product.descriptionDTOs[1].name,
+              lang: product.descriptionDTOs[1].lang,
+            },
+            {
+              id: product.descriptionDTOs[2].id,
+              name: product.descriptionDTOs[2].name,
+              lang: product.descriptionDTOs[2].lang,
+            },
+          ],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getters.getToken}`,
+          },
+        }
+      );
+      dispatch("getProducts");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async deleteProduct({ dispatch, getters }, id) {
     try {
       const response = await this.$axios.$delete(`${apiBase}Products/${id}`, {
         headers: {

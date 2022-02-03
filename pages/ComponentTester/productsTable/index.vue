@@ -2,7 +2,7 @@
   <table-content-layout :name="name">
     <template v-slot:table-content>
       <the-languages></the-languages>
-      <v-data-table :headers="headers" :items="products" sort-by="calories">
+      <v-data-table :headers="headers" :items="products">
         <template v-slot:footer>
           <v-toolbar flat>
             <v-toolbar-title>My CRUD</v-toolbar-title>
@@ -29,10 +29,21 @@
                   <v-container>
                     <v-row>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field
+                        <v-dialog v-model="shortNameDialog" max-width="800px">
+                          <languages-input
+                            @languages="editShortName"
+                            @closeDialog="shortNameDialog = false"
+                            :propSpanish="editedItem.shortNameCreateDTO[0].name"
+                          ></languages-input>
+                        </v-dialog>
+                        <v-textarea
                           v-model="editedItem.shortNameCreateDTO[language].name"
                           label="Product name"
-                        ></v-text-field>
+                          rows="2"
+                          auto-grow
+                          row-height="15"
+                          @click.stop="shortNameDialog = true"
+                        ></v-textarea>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
                         <v-text-field
@@ -53,10 +64,18 @@
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field
+                        <v-dialog v-model="descriptionDialog" max-width="800px">
+                          <languages-input
+                            @languages="editDescription"
+                            :propSpanish="editedItem.descriptionDTOs[0].name"
+                            @closeDialog="descriptionDialog = false"
+                          ></languages-input>
+                        </v-dialog>
+                        <v-textarea
                           v-model="editedItem.descriptionDTOs[language].name"
-                          label="Description)"
-                        ></v-text-field>
+                          label="Description"
+                          @click.stop="descriptionDialog = true"
+                        ></v-textarea>
                       </v-col>
                     </v-row>
                   </v-container>
@@ -107,10 +126,13 @@
 </template>
 
 <script>
+import LanguagesInput from "~/components/LanguagesInput.vue";
 export default {
+  components: { LanguagesInput },
   data: () => ({
     dialog: false,
-
+    shortNameDialog: false,
+    descriptionDialog: false,
     dialogDelete: false,
     headers: [
       {
@@ -121,9 +143,9 @@ export default {
       },
 
       { text: "Families", value: "familiesDTO.name" },
-      { text: "Departments", value: "departmentsDTO[this.language].name" },
+      { text: "Departments", value: "departmentsDTO[0].name" },
       { text: "Product Types", value: "ptypesDTO.name" },
-      { text: "Description", value: "descriptionDTOs[this.language].name" },
+      { text: "Description", value: "descriptionDTOs[0].name" },
       { text: "Actions", value: "actions", sortable: false },
     ],
     products: [],
@@ -136,11 +158,11 @@ export default {
       descriptionDTOs: [{ name: "" }, { name: "" }, { name: "" }],
     },
     defaultItem: {
-      shortNameCreateDTO: [{ name: "" }],
+      shortNameCreateDTO: [{ name: "" }, { name: "" }, { name: "" }],
       familiesDTO: { name: "" },
       departmentsDTO: [{ name: "" }],
       ptypesDTO: { name: "" },
-      descriptionDTOs: [{ name: "" }],
+      descriptionDTOs: [{ name: "" }, { name: "" }, { name: "" }],
     },
     name: "Products",
   }),
@@ -203,6 +225,25 @@ export default {
       this.closeDelete();
     },
 
+    editShortName(payload) {
+      console.log(this.editedIndex);
+      console.log(payload);
+      console.log(payload.english);
+      this.$store.commit("editShortName", {
+        languages: payload,
+        index: this.editedIndex,
+      });
+
+      this.shortNameDialog = false;
+    },
+    editDescription(payload) {
+      this.$store.commit("editDescription", {
+        languages: payload,
+        index: this.editedIndex,
+      });
+      this.descriptionDialog = false;
+    },
+
     close() {
       this.dialog = false;
       this.$nextTick(() => {
@@ -220,7 +261,10 @@ export default {
     },
 
     save() {
+      alert("saving");
+      console.log(this.editedIndex);
       if (this.editedIndex > -1) {
+        this.$store.dispatch("editProduct", this.products[this.editedIndex]);
         Object.assign(this.products[this.editedIndex], this.editedItem);
       } else {
         this.products.push(this.editedItem);

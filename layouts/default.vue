@@ -68,14 +68,19 @@ export default {
       fixed: false,
       items: [
         {
-          icon: "mdi-earth",
-          title: "Languages",
-          to: "/Languages",
-        },
-        {
           icon: "mdi-apps",
           title: "Welcome",
           to: "/",
+        },
+        {
+          icon: "mdi-silverware ",
+          title: "Daily-menu",
+          to: "/DailyMenu",
+        },
+        {
+          icon: "mdi-set-none",
+          title: "Product Types",
+          to: "/PTypes",
         },
         {
           icon: "mdi-family-tree",
@@ -91,16 +96,6 @@ export default {
           icon: "mdi-pasta",
           title: "Products",
           to: "/Products",
-        },
-        {
-          icon: "mdi-silverware ",
-          title: "Daily-menu",
-          to: "/DailyMenu",
-        },
-        {
-          icon: "mdi-set-none",
-          title: "Product Types",
-          to: "/PTypes",
         },
       ],
       miniVariant: false,
