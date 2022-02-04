@@ -58,6 +58,16 @@
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
+                        <v-select
+                          v-model="editedItem.ptypesDTO.name"
+                          :items="pTypes.name"
+                          item-text="state"
+                          item-value="abbr"
+                          label="Product types"
+                          persistent-hint
+                          return-object
+                          single-line
+                        ></v-select>
                         <v-text-field
                           v-model="editedItem.ptypesDTO.name"
                           label="Product Type"
@@ -67,8 +77,8 @@
                         <v-dialog v-model="descriptionDialog" max-width="800px">
                           <languages-input
                             @languages="editDescription"
-                            :propSpanish="editedItem.descriptionDTOs[0].name"
                             @closeDialog="descriptionDialog = false"
+                            :propSpanish="editedItem.descriptionDTOs[0].name"
                           ></languages-input>
                         </v-dialog>
                         <v-textarea
@@ -130,6 +140,9 @@ import LanguagesInput from "~/components/LanguagesInput.vue";
 export default {
   components: { LanguagesInput },
   data: () => ({
+    families: [],
+    pTypes: [],
+    departments: [],
     dialog: false,
     shortNameDialog: false,
     descriptionDialog: false,
@@ -168,6 +181,9 @@ export default {
   }),
   async fetch() {
     await this.$store.dispatch("getProducts");
+    await this.$store.dispatch("getFamilies");
+    await this.$store.dispatch("getDepartments");
+    await this.$store.dispatch("getPtypes");
   },
 
   computed: {
@@ -176,6 +192,15 @@ export default {
     },
     productsStore: function () {
       return this.$store.getters.getProducts;
+    },
+    familiesStore: function () {
+      return this.$store.getters.getFamilies;
+    },
+    departmentsStore: function () {
+      return this.$store.getters.getDepartments;
+    },
+    pTypesStore: function () {
+      return this.$store.getters.getPtypes;
     },
     language() {
       return this.$store.getters.getLanguageSelected;
@@ -191,6 +216,21 @@ export default {
     },
     productsStore: function () {
       this.products = this.$store.getters.getProducts.map((a) => {
+        return { ...a };
+      });
+    },
+    familiesStore: function () {
+      this.families = this.$store.getters.getFamilies.map((a) => {
+        return { ...a };
+      });
+    },
+    departmentsStore: function () {
+      this.departments = this.$store.getters.getDepartments.map((a) => {
+        return { ...a };
+      });
+    },
+    pTypesStore: function () {
+      this.pTypes = this.$store.getters.getPtypes.map((a) => {
         return { ...a };
       });
     },
@@ -226,21 +266,36 @@ export default {
     },
 
     editShortName(payload) {
-      console.log(this.editedIndex);
-      console.log(payload);
-      console.log(payload.english);
-      this.$store.commit("editShortName", {
-        languages: payload,
-        index: this.editedIndex,
-      });
+      if (this.editedIndex > -1) {
+        this.$store.commit("editShortName", {
+          languages: payload,
+          index: this.editedIndex,
+        });
+      } else {
+        console.log(payload);
+        this.editedItem.shortNameCreateDTO[0].name = payload.spanish;
+        this.editedItem.shortNameCreateDTO[1].name = payload.catalan;
+        this.editedItem.shortNameCreateDTO[2].name = payload.english;
+      }
 
       this.shortNameDialog = false;
     },
     editDescription(payload) {
-      this.$store.commit("editDescription", {
-        languages: payload,
-        index: this.editedIndex,
-      });
+      alert("edit");
+      console.log(payload);
+      if (this.editedIndex > -1) {
+        this.$store.commit("editDescription", {
+          languages: payload,
+          index: this.editedIndex,
+        });
+      } else {
+        alert("new");
+        console.log(payload);
+        alert("new Item");
+        this.editedItem.descriptionDTOs[0].name = payload.spanish;
+        this.editedItem.descriptionDTOs[1].name = payload.catalan;
+        this.editedItem.descriptionDTOs[2].name = payload.english;
+      }
       this.descriptionDialog = false;
     },
 
