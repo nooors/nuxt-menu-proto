@@ -8,7 +8,7 @@
             <v-toolbar-title>My CRUD</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" max-width="500px">
+            <v-dialog v-model="dialog" max-width="800px" elevation="10">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   color="primary"
@@ -46,32 +46,32 @@
                         ></v-textarea>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field
+                        <v-select
                           v-model="editedItem.familiesDTO.name"
+                          :items="families"
                           label="Family"
-                        ></v-text-field>
+                          :menu-props="{ maxHeight: '400' }"
+                          persistent-hint
+                          single-line
+                        ></v-select>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field
+                        <v-select
                           v-model="editedItem.departmentsDTO[0].name"
-                          label="Department"
-                        ></v-text-field>
+                          :items="departments"
+                          label="Departments"
+                          persistent-hint
+                          single-line
+                        ></v-select>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
                         <v-select
                           v-model="editedItem.ptypesDTO.name"
-                          :items="pTypes.name"
-                          item-text="state"
-                          item-value="abbr"
+                          :items="pTypes"
                           label="Product types"
                           persistent-hint
-                          return-object
                           single-line
                         ></v-select>
-                        <v-text-field
-                          v-model="editedItem.ptypesDTO.name"
-                          label="Product Type"
-                        ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
                         <v-dialog v-model="descriptionDialog" max-width="800px">
@@ -84,6 +84,9 @@
                         <v-textarea
                           v-model="editedItem.descriptionDTOs[language].name"
                           label="Description"
+                          rows="2"
+                          auto-grow
+                          row-height="15"
                           @click.stop="descriptionDialog = true"
                         ></v-textarea>
                       </v-col>
@@ -93,11 +96,15 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="close">
-                    Cancel
+                  <v-btn color="pink" dark fab @click="close">
+                    <v-icon>
+                      mdi-close
+                    </v-icon>
                   </v-btn>
-                  <v-btn color="blue darken-1" text @click="save">
-                    Save
+                  <v-btn color="pink" dark fab @click="save">
+                    <v-icon>
+                      mdi-content-save
+                    </v-icon>
                   </v-btn>
                 </v-card-actions>
               </v-card>
@@ -179,6 +186,7 @@ export default {
     },
     name: "Products",
   }),
+
   async fetch() {
     await this.$store.dispatch("getProducts");
     await this.$store.dispatch("getFamilies");
@@ -204,6 +212,7 @@ export default {
     },
     language() {
       return this.$store.getters.getLanguageSelected;
+      // this.$store.getters.getProducts;
     },
   },
 
@@ -218,29 +227,45 @@ export default {
       this.products = this.$store.getters.getProducts.map((a) => {
         return { ...a };
       });
-    },
-    familiesStore: function () {
-      this.families = this.$store.getters.getFamilies.map((a) => {
-        return { ...a };
-      });
-    },
-    departmentsStore: function () {
-      this.departments = this.$store.getters.getDepartments.map((a) => {
-        return { ...a };
-      });
+      this.products = JSON.parse(
+        JSON.stringify(this.$store.getters.getProducts)
+      );
     },
     pTypesStore: function () {
-      this.pTypes = this.$store.getters.getPtypes.map((a) => {
+      let aux = this.$store.getters.getPtypes.map((a) => {
         return { ...a };
       });
+      console.log(aux);
+      this.pTypes = aux.map((a) => {
+        return a.name;
+      });
+      console.log(this.pTypes);
     },
-    language: function () {
-      alert("language");
-      this.$forceUpdate();
+    familiesStore: function () {
+      let aux = this.$store.getters.getFamilies.map((a) => {
+        return { ...a };
+      });
+      console.log(aux);
+      this.families = aux.map((a) => {
+        return a.name;
+      });
+      console.log(this.pTypes);
     },
-    headers: {
+    departmentsStore: function () {
+      let aux = this.$store.getters.getDepartments.map((a) => {
+        return { ...a };
+      });
+      console.log(aux);
+      this.departments = aux.map((a) => {
+        return a.name;
+      });
+      console.log(this.pTypes);
+    },
+
+    language: {
       deep: true,
-      handler() {
+      handler: function () {
+        alert("language");
         this.$forceUpdate();
       },
     },
@@ -322,7 +347,8 @@ export default {
         this.$store.dispatch("editProduct", this.products[this.editedIndex]);
         Object.assign(this.products[this.editedIndex], this.editedItem);
       } else {
-        this.products.push(this.editedItem);
+        alert("new item");
+        // this.products.push(this.editedItem);
       }
       this.close();
     },

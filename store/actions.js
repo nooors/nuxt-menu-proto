@@ -335,7 +335,7 @@ export default {
       console.log(error);
     }
   },
-  async deletePty({ getters, dispatch }, id) {
+  async deletePtypes({ getters, dispatch }, id) {
     try {
       const response = await this.$axios.delete(`${apiBase}PTypes/?id=${id}`, {
         headers: {
@@ -358,6 +358,24 @@ export default {
         },
       });
       commit("setDepartments", response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async deleteDepartment({ getters, dispatch }, id) {
+    try {
+      const response = await this.$axios.delete(
+        `${apiBase}Departments/?id=${id}`,
+        { id: id },
+        {
+          headers: {
+            "Const-Type": "application/json",
+            Authorization: `Bearer ${getters.getToken}`,
+          },
+        }
+      );
+      dispatch("getDepartments");
+      console.log(response);
     } catch (error) {
       console.log(error);
     }

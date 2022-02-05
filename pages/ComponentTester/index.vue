@@ -9,6 +9,7 @@
     <nuxt-link to="ComponentTester/products">Products</nuxt-link>
     <nuxt-link to="ComponentTester/productsTable">Products Table</nuxt-link>
     <nuxt-link to="ComponentTester/cardLanguages">Card Languages</nuxt-link>
+    <nuxt-link to="ComponentTester/arrayTest">Array test</nuxt-link>
   </div>
 </template>
 

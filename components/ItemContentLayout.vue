@@ -10,9 +10,11 @@
       :key="item.id"
       max-width="200"
     >
-      <v-card-title class="text-center body-1">
-        {{ item.name }}
-      </v-card-title>
+      <slot name="card-content">
+        <v-card-title class="text-center body-1">
+          {{ item.name }}
+        </v-card-title>
+      </slot>
       <v-card-actions class="mb-3">
         <v-fab-transition>
           <v-menu
