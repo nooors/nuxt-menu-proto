@@ -34,6 +34,8 @@
                             @languages="editShortName"
                             @closeDialog="shortNameDialog = false"
                             :propSpanish="editedItem.shortNameCreateDTO[0].name"
+                            :propCatalan="editedItem.shortNameCreateDTO[1].name"
+                            :propEnglish="editedItem.shortNameCreateDTO[2].name"
                           ></languages-input>
                         </v-dialog>
                         <v-textarea
@@ -47,8 +49,10 @@
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
                         <v-select
-                          v-model="editedItem.familiesDTO.name"
+                          v-model="editedItem.familiesDTO"
                           :items="families"
+                          item-text="name"
+                          return-object
                           label="Family"
                           :menu-props="{ maxHeight: '400' }"
                           persistent-hint
@@ -57,8 +61,11 @@
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
                         <v-select
-                          v-model="editedItem.departmentsDTO[0].name"
+                          v-model="editedItem.departmentsDTO[0]"
                           :items="departments"
+                          item-text="name"
+                          item-value="id"
+                          return-object
                           label="Departments"
                           persistent-hint
                           single-line
@@ -66,8 +73,11 @@
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
                         <v-select
-                          v-model="editedItem.ptypesDTO.name"
+                          v-model="editedItem.ptypesDTO"
                           :items="pTypes"
+                          item-value="id"
+                          item-text="name"
+                          return-object
                           label="Product types"
                           persistent-hint
                           single-line
@@ -172,16 +182,16 @@ export default {
     editedIndex: -1,
     editedItem: {
       shortNameCreateDTO: [{ name: "" }, { name: "" }, { name: "" }],
-      familiesDTO: { name: "" },
-      departmentsDTO: [{ name: "" }],
-      ptypesDTO: { name: "" },
+      familiesDTO: { id: 1, name: "" },
+      departmentsDTO: [{ id: 1, name: "" }],
+      ptypesDTO: { id: 1, name: "" },
       descriptionDTOs: [{ name: "" }, { name: "" }, { name: "" }],
     },
     defaultItem: {
       shortNameCreateDTO: [{ name: "" }, { name: "" }, { name: "" }],
-      familiesDTO: { name: "" },
-      departmentsDTO: [{ name: "" }],
-      ptypesDTO: { name: "" },
+      familiesDTO: { id: 1, name: "" },
+      departmentsDTO: [{ id: 1, name: "" }],
+      ptypesDTO: { id: 1, name: "" },
       descriptionDTOs: [{ name: "" }, { name: "" }, { name: "" }],
     },
     name: "Products",
@@ -232,34 +242,23 @@ export default {
       );
     },
     pTypesStore: function () {
-      let aux = this.$store.getters.getPtypes.map((a) => {
+      this.pTypes = this.$store.getters.getPtypes.map((a) => {
         return { ...a };
       });
-      console.log(aux);
-      this.pTypes = aux.map((a) => {
-        return a.name;
-      });
+
       console.log(this.pTypes);
     },
     familiesStore: function () {
-      let aux = this.$store.getters.getFamilies.map((a) => {
+      this.families = this.$store.getters.getFamilies.map((a) => {
         return { ...a };
       });
-      console.log(aux);
-      this.families = aux.map((a) => {
-        return a.name;
-      });
+
       console.log(this.pTypes);
     },
     departmentsStore: function () {
-      let aux = this.$store.getters.getDepartments.map((a) => {
+      this.departments = this.$store.getters.getDepartments.map((a) => {
         return { ...a };
       });
-      console.log(aux);
-      this.departments = aux.map((a) => {
-        return a.name;
-      });
-      console.log(this.pTypes);
     },
 
     language: {
@@ -291,36 +290,17 @@ export default {
     },
 
     editShortName(payload) {
-      if (this.editedIndex > -1) {
-        this.$store.commit("editShortName", {
-          languages: payload,
-          index: this.editedIndex,
-        });
-      } else {
-        console.log(payload);
-        this.editedItem.shortNameCreateDTO[0].name = payload.spanish;
-        this.editedItem.shortNameCreateDTO[1].name = payload.catalan;
-        this.editedItem.shortNameCreateDTO[2].name = payload.english;
-      }
+      this.editedItem.shortNameCreateDTO[0].name = payload.spanish;
+      this.editedItem.shortNameCreateDTO[1].name = payload.catalan;
+      this.editedItem.shortNameCreateDTO[2].name = payload.english;
 
       this.shortNameDialog = false;
     },
     editDescription(payload) {
-      alert("edit");
-      console.log(payload);
-      if (this.editedIndex > -1) {
-        this.$store.commit("editDescription", {
-          languages: payload,
-          index: this.editedIndex,
-        });
-      } else {
-        alert("new");
-        console.log(payload);
-        alert("new Item");
-        this.editedItem.descriptionDTOs[0].name = payload.spanish;
-        this.editedItem.descriptionDTOs[1].name = payload.catalan;
-        this.editedItem.descriptionDTOs[2].name = payload.english;
-      }
+      this.editedItem.descriptionDTOs[0].name = payload.spanish;
+      this.editedItem.descriptionDTOs[1].name = payload.catalan;
+      this.editedItem.descriptionDTOs[2].name = payload.english;
+
       this.descriptionDialog = false;
     },
 
