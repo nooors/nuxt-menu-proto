@@ -172,6 +172,70 @@ export default {
       console.log(error);
     }
   },
+  async addProduct({ getters, dispatch }, product) {
+    try {
+      const response = await this.$axios.$post(
+        `${apiBase}Products`,
+
+        {
+          id: 0,
+          familiesDTO: {
+            id: product.familiesDTO.id,
+            name: product.familiesDTO.name,
+          },
+          ptypesDTO: {
+            id: product.ptypesDTO.id,
+            name: product.ptypesDTO.name,
+          },
+          departmentsId: [product.departmentsDTO[0].id],
+          shortNameCreateDTO: [
+            {
+              id: 0,
+              name: product.shortNameCreateDTO[0].name,
+              lang: "es",
+            },
+            {
+              id: 0,
+              name: product.shortNameCreateDTO[1].name,
+              lang: "ca",
+            },
+            {
+              id: 0,
+              name: product.shortNameCreateDTO[2].name,
+              lang: "en",
+            },
+          ],
+          descriptionDTOs: [
+            {
+              id: 0,
+              name: product.descriptionDTOs[0].name,
+              lang: "es",
+            },
+            {
+              id: 0,
+              name: product.descriptionDTOs[1].name,
+              lang: "ca",
+            },
+            {
+              id: 0,
+              name: product.descriptionDTOs[2].name,
+              lang: "en",
+            },
+          ],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getters.getToken}`,
+          },
+        }
+      );
+      dispatch("getProducts");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
   async deleteProduct({ dispatch, getters }, id) {
     try {
       const response = await this.$axios.$delete(`${apiBase}Products/${id}`, {

@@ -25,84 +25,112 @@
                   <span class="text-h5">{{ formTitle }}</span>
                 </v-card-title>
 
-                <v-card-text>
-                  <v-container>
-                    <v-row>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-dialog v-model="shortNameDialog" max-width="800px">
-                          <languages-input
-                            @languages="editShortName"
-                            @closeDialog="shortNameDialog = false"
-                            :propSpanish="editedItem.shortNameCreateDTO[0].name"
-                            :propCatalan="editedItem.shortNameCreateDTO[1].name"
-                            :propEnglish="editedItem.shortNameCreateDTO[2].name"
-                          ></languages-input>
-                        </v-dialog>
-                        <v-textarea
-                          v-model="editedItem.shortNameCreateDTO[language].name"
-                          label="Product name"
-                          rows="2"
-                          auto-grow
-                          row-height="15"
-                          @click.stop="shortNameDialog = true"
-                        ></v-textarea>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-select
-                          v-model="editedItem.familiesDTO"
-                          :items="families"
-                          item-text="name"
-                          return-object
-                          label="Family"
-                          :menu-props="{ maxHeight: '400' }"
-                          persistent-hint
-                          single-line
-                        ></v-select>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-select
-                          v-model="editedItem.departmentsDTO[0]"
-                          :items="departments"
-                          item-text="name"
-                          item-value="id"
-                          return-object
-                          label="Departments"
-                          persistent-hint
-                          single-line
-                        ></v-select>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-select
-                          v-model="editedItem.ptypesDTO"
-                          :items="pTypes"
-                          item-value="id"
-                          item-text="name"
-                          return-object
-                          label="Product types"
-                          persistent-hint
-                          single-line
-                        ></v-select>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-dialog v-model="descriptionDialog" max-width="800px">
-                          <languages-input
-                            @languages="editDescription"
-                            @closeDialog="descriptionDialog = false"
-                            :propSpanish="editedItem.descriptionDTOs[0].name"
-                          ></languages-input>
-                        </v-dialog>
-                        <v-textarea
-                          v-model="editedItem.descriptionDTOs[language].name"
-                          label="Description"
-                          rows="2"
-                          auto-grow
-                          row-height="15"
-                          @click.stop="descriptionDialog = true"
-                        ></v-textarea>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-card-text>
+                <form ref="formValidate" lazy-validation>
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-dialog v-model="shortNameDialog" max-width="800px">
+                            <languages-input
+                              @languages="editShortName"
+                              @closeDialog="shortNameDialog = false"
+                              :propSpanish="
+                                editedItem.shortNameCreateDTO[0].name
+                              "
+                              :propCatalan="
+                                editedItem.shortNameCreateDTO[1].name
+                              "
+                              :propEnglish="
+                                editedItem.shortNameCreateDTO[2].name
+                              "
+                            ></languages-input>
+                          </v-dialog>
+                          <v-textarea
+                            v-model="
+                              editedItem.shortNameCreateDTO[language].name
+                            "
+                            label="Product name"
+                            hint="Product name"
+                            persistent-hint
+                            rows="2"
+                            auto-grow
+                            row-height="15"
+                            :rules="[rules.required]"
+                            @click.stop="shortNameDialog = true"
+                          ></v-textarea>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-select
+                            v-model="editedItem.familiesDTO"
+                            :items="families"
+                            item-text="name"
+                            item-value="id"
+                            return-object
+                            label="Family"
+                            :menu-props="{ maxHeight: '400' }"
+                            hint="Family"
+                            persistent-hint
+                            :rules="[rules.required]"
+                            single-line
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-select
+                            v-model="editedItem.departmentsDTO[0]"
+                            :items="departments"
+                            item-text="name"
+                            item-value="id"
+                            return-object
+                            label="Departments"
+                            hint="Departments"
+                            persistent-hint
+                            :rules="[rules.required]"
+                            single-line
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-select
+                            v-model="editedItem.ptypesDTO"
+                            :items="pTypes"
+                            item-value="id"
+                            item-text="name"
+                            return-object
+                            label="Product types"
+                            hint="Product types"
+                            persistent-hint
+                            :rules="[rules.required]"
+                            single-line
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-dialog
+                            v-model="descriptionDialog"
+                            max-width="800px"
+                          >
+                            <languages-input
+                              @languages="editDescription"
+                              @closeDialog="descriptionDialog = false"
+                              :propSpanish="editedItem.descriptionDTOs[0].name"
+                              :propCatalan="editedItem.descriptionDTOs[1].name"
+                              :propEngish="editedItem.descriptionDTOs[2].name"
+                            ></languages-input>
+                          </v-dialog>
+                          <v-textarea
+                            v-model="editedItem.descriptionDTOs[language].name"
+                            label="Description"
+                            hint="Description"
+                            persistent-hint
+                            rows="2"
+                            auto-grow
+                            :rules="[rules.required]"
+                            row-height="15"
+                            @click.stop="descriptionDialog = true"
+                          ></v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
+                </form>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -164,6 +192,9 @@ export default {
     shortNameDialog: false,
     descriptionDialog: false,
     dialogDelete: false,
+    rules: {
+      required: (value) => !!value || "Required.",
+    },
     headers: [
       {
         text: "Products",
@@ -321,14 +352,12 @@ export default {
     },
 
     save() {
-      alert("saving");
-      console.log(this.editedIndex);
       if (this.editedIndex > -1) {
         this.$store.dispatch("editProduct", this.products[this.editedIndex]);
-        Object.assign(this.products[this.editedIndex], this.editedItem);
       } else {
-        alert("new item");
-        // this.products.push(this.editedItem);
+        this.$store.dispatch("addProduct", this.editedItem);
+
+        // this.$store.dispatch("addProduct", this.editedItem);
       }
       this.close();
     },

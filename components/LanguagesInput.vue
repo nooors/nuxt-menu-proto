@@ -1,7 +1,7 @@
 <template>
   <v-card shaped>
     <v-card-text>
-      <v-form v-model="valid">
+      <v-form ref="form">
         <v-row>
           <v-col>
             <v-textarea
@@ -59,10 +59,9 @@
 
 <script>
 export default {
-  props: ["dialog", "propSpanish", "propCatalan", "propEnglish"],
+  props: ["dialog", "index", "propSpanish", "propCatalan", "propEnglish"],
   data() {
     return {
-      valid: false,
       languages: {
         spanish: "",
         catalan: "",
@@ -75,9 +74,9 @@ export default {
   },
   methods: {
     saveLanguages: function () {
-      !this.valid
-        ? alert("not valid")
-        : this.$emit("languages", this.languages);
+      if (this.$refs.form.validate()) {
+        this.$emit("languages", this.languages);
+      }
     },
   },
   created() {
