@@ -2,10 +2,19 @@
   <item-content-layout
     :name="item.name"
     :items="item.ptypes"
+    :label="item.label"
     @addNewItem="addNewPtype"
     @updateItem="updatePtype"
     @deleteItem="deletePtype"
-  ></item-content-layout>
+  >
+    <template v-slot:new-item>
+      New Product Type
+    </template>
+
+    <template v-slot:new-tooltip>
+      <span>New Product Type</span>
+    </template>
+  </item-content-layout>
 </template>
 
 <script>
@@ -17,6 +26,7 @@ export default {
       item: {
         name: "Product Types",
         ptypes: [],
+        label: "New Product Type",
       },
     };
   },

@@ -2,6 +2,7 @@
   <item-content-layout
     :name="item.name"
     :items="item.families"
+    :label="item.label"
     @addNewItem="addNewFamily"
     @updateItem="updateFamily"
     @deleteItem="deleteFamily"
@@ -18,6 +19,7 @@ export default {
       item: {
         name: "Families",
         families: [],
+        label: "New Family",
       },
     };
   },
@@ -48,7 +50,6 @@ export default {
         this.$store.dispatch("deleteFamily", id).catch(() => {
           console.log("dispatch-error");
         });
-        // alert(this.$store.getters.getFamilyById);
       }
     },
   },

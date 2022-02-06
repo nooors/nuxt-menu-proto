@@ -1,23 +1,21 @@
 <template>
-  <table-content-layout :name="name">
+  <table-content-layout :name="name" :openDialog="dialogOpen">
     <template v-slot:table-content>
-      <the-languages></the-languages>
       <v-data-table :headers="headers" :items="products">
-        <template v-slot:footer>
-          <v-toolbar flat>
-            <v-toolbar-title>My CRUD</v-toolbar-title>
-            <v-divider class="mx-4" inset vertical></v-divider>
+        <template v-slot:top>
+          <v-toolbar class="mt-3">
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="800px" elevation="10">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  color="primary"
+                  color="pink"
                   dark
                   class="mb-2"
                   v-bind="attrs"
                   v-on="on"
+                  fab
                 >
-                  New Item
+                  <v-icon>mdi-plus</v-icon>
                 </v-btn>
               </template>
               <v-card shaped elevation="elevation-10">
@@ -363,6 +361,11 @@ export default {
     },
     refreshData() {
       this.$store.dispatch("getProducts");
+    },
+    dialogOpen: function () {
+      alert("+");
+      console.log(payload);
+      return (this.dialog = true);
     },
   },
 };

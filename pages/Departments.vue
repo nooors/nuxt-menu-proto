@@ -2,10 +2,19 @@
   <item-content-layout
     :name="item.name"
     :items="item.departments"
+    :label="item.label"
     @addNewItem="addNewDepartment"
     @updateItem="updateDepartment"
     @deleteItem="deleteDepartment"
-  ></item-content-layout>
+  >
+    <template v-slot:new-item>
+      Departments
+    </template>
+
+    <template v-slot:new-tooltip>
+      <span>New Department</span>
+    </template>
+  </item-content-layout>
 </template>
 
 <script>
@@ -17,6 +26,7 @@ export default {
       item: {
         name: "Departments",
         departments: [],
+        label: "New Deparment",
       },
     };
   },

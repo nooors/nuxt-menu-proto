@@ -110,9 +110,6 @@ export default {
   },
   watch: {
     productsStore: function () {
-      // this.products = this.$store.getters.getProducts.map((a) => {
-      //   return { ...a };
-      // });
       this.products = JSON.parse(
         JSON.stringify(this.$store.getters.getProducts)
       );
