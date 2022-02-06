@@ -59,7 +59,7 @@
 
 <script>
 export default {
-  props: ["dialog", "index", "propSpanish", "propCatalan", "propEnglish"],
+  props: ["dialog", "propSpanish", "propCatalan", "propEnglish"],
   data() {
     return {
       languages: {

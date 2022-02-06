@@ -1,5 +1,5 @@
 <template>
-  <v-container class="d-flex">
+  <v-container>
     <v-row>
       <v-col>
         <h1 class="mb-5">{{ name }}</h1>
@@ -11,6 +11,7 @@
           color="pink"
           fab
           medium
+          absolute
           top
           right
           dark
@@ -58,88 +59,85 @@
         <span>New Family</span>
       </slot>
     </v-tooltip>
-    <v-row>
-      <v-col xl="2" lg="3" md="3" sm="4" xs="2">
-        <v-card
-          class="mb-7 mr-7 px-7 py-3"
-          shaped
-          elevation="10"
-          v-for="item in items"
-          :key="item.id"
-          max-width="200"
-        >
-          <slot name="card-content">
-            <v-card-title class="text-center body-1">
-              {{ item.name }}
-            </v-card-title>
-          </slot>
-          <v-card-actions class="mb-3">
-            <v-fab-transition>
-              <v-menu
-                :v-model="menu[item.id]"
-                :close-on-content-click="false"
-                nudge-width="200"
-                offset-x
-                persistent
-                allow-overflow
-                shaped
+
+    <v-card
+      class="mb-7 mr-7 px-7 py-3"
+      shaped
+      elevation="10"
+      v-for="item in items"
+      :key="item.id"
+      max-width="200"
+    >
+      <slot name="card-content">
+        <v-card-title class="text-center body-1">
+          {{ item.name }}
+        </v-card-title>
+      </slot>
+      <v-card-actions class="mb-3">
+        <v-fab-transition>
+          <v-menu
+            :v-model="menu[item.id]"
+            :close-on-content-click="false"
+            nudge-width="200"
+            offset-x
+            persistent
+            allow-overflow
+            shaped
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="pink"
+                fab
+                dark
+                x-small
+                absolute
+                bottom
+                right
+                v-on="on"
+                v-bind="attrs"
               >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    color="pink"
-                    fab
-                    dark
-                    x-small
-                    absolute
-                    bottom
-                    right
-                    v-on="on"
-                    v-bind="attrs"
-                  >
-                    <v-icon>mdi-pencil</v-icon>
-                  </v-btn>
-                </template>
-                <v-card shaped class="pa-3">
-                  <v-form ref="family-form">
-                    <v-text-field
-                      v-model="item.name"
-                      :value="item.name"
-                    ></v-text-field>
-                  </v-form>
-                  <v-card-actions>
-                    <v-btn
-                      class="mr-10"
-                      color="pink"
-                      fab
-                      dark
-                      absolute
-                      bottom
-                      right
-                      x-small
-                      @click="updateItem(item.id, item.name)"
-                    >
-                      <v-icon>mdi-content-save</v-icon>
-                    </v-btn>
-                    <v-btn
-                      color="pink"
-                      fab
-                      dark
-                      absolute
-                      bottom
-                      right
-                      x-small
-                      @click="deleteItem(item.id)"
-                    >
-                      <v-icon>mdi-delete</v-icon>
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-menu>
-            </v-fab-transition>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </template>
+            <v-card shaped class="pa-3">
+              <v-form ref="family-form">
+                <v-text-field
+                  v-model="item.name"
+                  :value="item.name"
+                ></v-text-field>
+              </v-form>
+              <v-card-actions>
+                <v-btn
+                  class="mr-10"
+                  color="pink"
+                  fab
+                  dark
+                  absolute
+                  bottom
+                  right
+                  x-small
+                  @click="updateItem(item.id, item.name)"
+                >
+                  <v-icon>mdi-content-save</v-icon>
+                </v-btn>
+                <v-btn
+                  color="pink"
+                  fab
+                  dark
+                  absolute
+                  bottom
+                  right
+                  x-small
+                  @click="deleteItem(item.id)"
+                >
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-menu>
+        </v-fab-transition>
+      </v-card-actions>
+    </v-card>
   </v-container>
 </template>
 

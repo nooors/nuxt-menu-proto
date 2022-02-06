@@ -3,7 +3,7 @@
     <template v-slot:table-content>
       <v-data-table :headers="headers" :items="products">
         <template v-slot:top>
-          <v-toolbar class="mt-3">
+          <v-toolbar class="mt-3" elevation="0">
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="800px" elevation="10">
               <template v-slot:activator="{ on, attrs }">
@@ -180,8 +180,9 @@
 
 <script>
 import LanguagesInput from "~/components/LanguagesInput.vue";
+import tableContentLayout from "~/components/tableContentLayout.vue";
 export default {
-  components: { LanguagesInput },
+  components: { LanguagesInput, tableContentLayout },
   data: () => ({
     families: [],
     pTypes: [],
@@ -202,7 +203,7 @@ export default {
       },
 
       { text: "Families", value: "familiesDTO.name" },
-      { text: "Departments", value: "departmentsDTO[0].name" },
+      { text: "Departments", value: "`departmentsDTO[${this.language}].name`" },
       { text: "Product Types", value: "ptypesDTO.name" },
       { text: "Description", value: "descriptionDTOs[0].name" },
       { text: "Actions", value: "actions", sortable: false },
@@ -290,12 +291,8 @@ export default {
       });
     },
 
-    language: {
-      deep: true,
-      handler: function () {
-        alert("language");
-        this.$forceUpdate();
-      },
+    languageStore: function () {
+      this.language = this.$store.getters.getLanguageSelected;
     },
   },
 
