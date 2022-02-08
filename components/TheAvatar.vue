@@ -42,9 +42,11 @@ export default {
       this.avatar.name = this.$store.getters.getUser.email
         .charAt(0)
         .toUpperCase();
-      this.avatar.email = this.$store.getters.getUser.email;
-      this.avatar.user = this.$store.getters.getUser.user;
-      this.avatar.role = this.$store.getters.getUser.role;
+      this.avatar.email = this.$store.getters.getUser.userName;
+      this.avatar.user = this.$store.getters.getUser.name;
+      this.avatar.role = this.$store.getters.getUser.role.includes("Admin")
+        ? "Admin"
+        : "User";
     },
   },
 };

@@ -112,13 +112,19 @@ export default {
       return result;
     },
     isAdmin: function () {
+      alert(`Default: ${this.$store.getters.getIsAdmin}`);
       if (this.$store.getters.getIsAdmin) {
-        alert("isAdmin");
-        return this.$store.getters.getIsAdmin;
+        return true;
       }
+      return false;
     },
   },
   created() {
+    alert(`userLogged ${this.$store.getters.getUserLogged}`);
+    if (!this.$store.getters.getUserLogged) {
+      alert("es un reload");
+      this.$store.dispatch("getUsers");
+    }
     if (this.isAdmin) {
       this.items.push(
         {

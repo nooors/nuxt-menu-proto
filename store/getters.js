@@ -2,23 +2,39 @@ export default {
   getMenu(state) {
     return state.menu;
   },
-  gettUser() {
-    return {
-      user: localStorage.getItem("user"),
-      admin: localStorage.getItem("Admin"),
-      email: localStorage.getItem("email"),
-    };
+  getUserLogged(state) {
+    return state.userLogged;
+  },
+
+  getUserStorage() {
+    if (localStorage.getItem("user") === "User") {
+      return {
+        user: localStorage.getItem("user"),
+        admin: localStorage.getItem("Admin"),
+        email: localStorage.getItem("email"),
+      };
+    }
+    return false;
   },
   getIsAdmin(state) {
-    console.log("typeof state.user");
-    console.log(typeof state.user);
-    if (!!state.user.Admin) {
+    // alert("getAdmin");
+    // if (localStorage.getItem("Admin") === "Admin") {
+    //   return true;
+    // }
+    // return false;
+
+    if (!!state.userLogged.Admin) {
+      alert("Admin true");
       return true;
     }
+    alert("Admin false");
     return false;
   },
   getUsers(state) {
     return state.Users;
+  },
+  getUser(state) {
+    return state.user;
   },
   getLanguages(state) {
     return state.languages;

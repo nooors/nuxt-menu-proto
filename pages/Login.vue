@@ -56,6 +56,7 @@ export default {
       login: { email: "", password: "" },
     };
   },
+
   methods: {
     Submit() {
       if (this.$refs.form.validate()) {

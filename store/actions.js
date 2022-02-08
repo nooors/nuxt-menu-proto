@@ -27,19 +27,20 @@ export default {
       console.log(response);
     }
   },
-  async login({ commit }, payload) {
+  async login({ commit, dispatch }, payload) {
     try {
       const response = await this.$axios.$post(
         `${apiBase}Accounts/login`,
         payload
       );
       let tokenParsed = parseJwt(response.token);
+      await commit("isLogged", response.token);
+      await commit("setUserLogged", tokenParsed);
       console.log(tokenParsed);
-      commit("isLogged", response.token);
-      commit("setUser", tokenParsed);
-    } catch (error) {
-      alert(error);
+    } catch {
+      alert("Incorrect password or email");
     }
+    dispatch("getUsers");
   },
 
   logOut({ commit }) {
@@ -63,6 +64,11 @@ export default {
         },
       });
       commit("setUsers", response);
+      let user = getters.getUsers.filter(
+        (a) => a.userName === getters.getUserLogged.email
+      );
+      console.log(user[0]);
+      commit("setUser", user[0]);
     } catch (error) {
       console.log(error);
     }
