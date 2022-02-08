@@ -2,12 +2,20 @@ export default {
   getMenu(state) {
     return state.menu;
   },
-  getUser() {
+  gettUser() {
     return {
       user: localStorage.getItem("user"),
-      role: localStorage.getItem("role"),
+      admin: localStorage.getItem("Admin"),
       email: localStorage.getItem("email"),
     };
+  },
+  getIsAdmin(state) {
+    console.log("typeof state.user");
+    console.log(typeof state.user);
+    if (!!state.user.Admin) {
+      return true;
+    }
+    return false;
   },
   getUsers(state) {
     return state.Users;

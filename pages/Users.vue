@@ -11,7 +11,9 @@
       max-width="250"
     >
       <v-card-title class="text-center body-1">
-        <v-avatar color="warning" size="30" class="mr-2">U</v-avatar>
+        <v-avatar color="warning" size="30" class="mr-2">{{
+          userAvatar(user.userName)
+        }}</v-avatar>
         {{ user.name }} {{ user.surName }}
       </v-card-title>
       <v-divider> </v-divider>
@@ -145,6 +147,12 @@ export default {
 
     deleteUser(id) {
       console.log(id);
+    },
+    userAvatar: function (userName) {
+      console.log(userName);
+      console.log(typeof userName);
+      console.log(userName.charAt(0).toUpperCase());
+      return userName.charAt(0).toUpperCase();
     },
   },
 };

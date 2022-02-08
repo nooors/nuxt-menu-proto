@@ -22,18 +22,29 @@ export default {
   data() {
     return {
       color: "warning",
+      avatar: {
+        name: "",
+        email: "",
+        user: "",
+        role: "",
+      },
     };
   },
   computed: {
-    avatar() {
-      if (this.$store.getters.getUser.email) {
-        return {
-          name: this.$store.getters.getUser.email.charAt(0).toUpperCase(),
-          email: this.$store.getters.getUser.email,
-          user: this.$store.getters.getUser.user,
-          role: this.$store.getters.getUser.role,
-        };
+    avatarStore() {
+      if (this.$store.getters.getUser) {
+        return this.$store.getters.gettUser;
       }
+    },
+  },
+  watch: {
+    avatarStore: function () {
+      this.avatar.name = this.$store.getters.getUser.email
+        .charAt(0)
+        .toUpperCase();
+      this.avatar.email = this.$store.getters.getUser.email;
+      this.avatar.user = this.$store.getters.getUser.user;
+      this.avatar.role = this.$store.getters.getUser.role;
     },
   },
 };

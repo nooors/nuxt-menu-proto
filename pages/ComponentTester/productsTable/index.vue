@@ -129,6 +129,12 @@
                     </v-container>
                   </v-card-text>
                 </form>
+                <div v-if="isInvalid">
+                  <p class="ml-5 pink--text">
+                    "You need to fill all the fields in order to create a new
+                    product"
+                  </p>
+                </div>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -225,6 +231,7 @@ export default {
       descriptionDTOs: [{ name: "" }, { name: "" }, { name: "" }],
     },
     name: "Products",
+    isInvalid: false,
   }),
 
   async fetch() {
@@ -346,15 +353,32 @@ export default {
       });
     },
 
-    save() {
+    save: function () {
       if (this.editedIndex > -1) {
         this.$store.dispatch("editProduct", this.products[this.editedIndex]);
       } else {
-        this.$store.dispatch("addProduct", this.editedItem);
-
-        // this.$store.dispatch("addProduct", this.editedItem);
+        alert(this.validate());
+        if (this.validate()) {
+          this.$store.dispatch("addProduct", this.editedItem);
+        } else {
+          this.isInvalid = true;
+          return;
+        }
       }
       this.close();
+    },
+    validate: function () {
+      if (
+        this.editedItem.shortNameCreateDTO.some((a) => a.name === "") ||
+        this.editedItem.familiesDTO === "" ||
+        this.editedItem.departmentsDTO.some((a) => a.name === "") ||
+        this.editedItem.ptypesDTO.name === "" ||
+        this.editedItem.descriptionDTOs.some((a) => a.name === "")
+      ) {
+        return false;
+      }
+      this.isInvalid = false;
+      return true;
     },
     refreshData() {
       this.$store.dispatch("getProducts");

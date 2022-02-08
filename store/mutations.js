@@ -1,8 +1,11 @@
 export default {
   setUser: (state, payload) => {
     state.user = payload;
+    if (payload.hasOwnProperty("Admin")) {
+      localStorage.setItem("Admin", payload.Admin);
+    }
     localStorage.setItem("user", payload.User);
-    localStorage.setItem("role", payload.Admin);
+
     localStorage.setItem("email", payload.email);
   },
   setUsers: (state, payload) => {
@@ -22,7 +25,7 @@ export default {
   logOut: (state) => {
     state.isLogged = false;
     state.token = "";
-    state.urer = null;
+    state.user = null;
     localStorage.clear();
   },
   setAuthenticate: (state) => {

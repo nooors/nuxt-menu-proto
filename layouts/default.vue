@@ -108,12 +108,18 @@ export default {
     isLogged: function () {
       console.log("isLogged");
       let result = this.$store.getters.getIsLogged;
-      console.log(result);
+
       return result;
+    },
+    isAdmin: function () {
+      if (this.$store.getters.getIsAdmin) {
+        alert("isAdmin");
+        return this.$store.getters.getIsAdmin;
+      }
     },
   },
   created() {
-    if (this.isLogged) {
+    if (this.isAdmin) {
       this.items.push(
         {
           icon: "mdi-account-plus-outline",
@@ -121,21 +127,23 @@ export default {
           to: "/Register",
         },
         {
-          icon: "mdi-logout ",
-          title: "Log Out",
-          to: "/LogOut",
+          icon: "mdi-account-outline",
+          title: "Users",
+          to: "/Users",
         },
         {
           icon: "mdi-vuetify ",
           title: "Pruebas",
           to: "/ComponentTester",
-        },
-        {
-          icon: "mdi-account-outline",
-          title: "Users",
-          to: "/Users",
         }
       );
+    }
+    if (this.isLogged) {
+      this.items.push({
+        icon: "mdi-logout ",
+        title: "Log Out",
+        to: "/LogOut",
+      });
     }
   },
 };

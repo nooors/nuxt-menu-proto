@@ -31,7 +31,7 @@ export default {
     };
   },
   async fetch() {
-    await this.$store.dispatch("getDepartments");
+    await this.$store.dispatch("departments/getDepartments");
   },
   computed: {
     departmentsStore: function () {

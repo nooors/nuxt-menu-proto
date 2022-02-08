@@ -22,8 +22,6 @@ export default {
           },
         }
       );
-      //commit("setUsers", response);
-      console.log(response);
       $nuxt.$router.push("/Users");
     } catch (response) {
       console.log(response);
@@ -36,6 +34,7 @@ export default {
         payload
       );
       let tokenParsed = parseJwt(response.token);
+      console.log(tokenParsed);
       commit("isLogged", response.token);
       commit("setUser", tokenParsed);
     } catch (error) {

@@ -12,5 +12,5 @@ export default () => ({
   ptypeId: null,
   departments: [],
   token: null,
-  user: null,
+  user: {},
 });
