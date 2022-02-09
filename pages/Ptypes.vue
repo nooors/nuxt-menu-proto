@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     addNewPtype: function (payload) {
-      alert("newFamily");
       this.$store.dispatch("addPtype", payload);
     },
     updatePtype: function (id, name) {

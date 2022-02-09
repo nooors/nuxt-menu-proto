@@ -179,11 +179,8 @@ export default {
   },
   methods: {
     submit() {
-      alert("submit");
       if (this.$refs.form.validate()) {
         this.$emit("submit", this.dataValues);
-      } else {
-        alert("validation fails");
       }
     },
   },

@@ -112,20 +112,12 @@ export default {
       return result;
     },
     isAdmin: function () {
-      alert(`Default: ${this.$store.getters.getIsAdmin}`);
-      if (this.$store.getters.getIsAdmin) {
-        return true;
-      }
-      return false;
+      let result = this.$store.getters.getIsAdmin;
+      return result;
     },
   },
   created() {
-    alert(`userLogged ${this.$store.getters.getUserLogged}`);
-    if (!this.$store.getters.getUserLogged) {
-      alert("es un reload");
-      this.$store.dispatch("getUsers");
-    }
-    if (this.isAdmin) {
+    if (this.$store.getters.getIsAdmin) {
       this.items.push(
         {
           icon: "mdi-account-plus-outline",

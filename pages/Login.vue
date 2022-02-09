@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { parseJwt } from "~/utils/api";
 export default {
   layout: "authenticate",
   data() {
@@ -62,18 +63,23 @@ export default {
       if (this.$refs.form.validate()) {
         this.$store.dispatch("login", this.login).then(this.logged);
       }
-      // this.$store.commit("setAuthenticate");
-      // this.$store.commit("isLogged");
-      // this.$router.push("/");
     },
     logged() {
       return this.$router.push("/");
     },
   },
+
+  // When any page is reloaded the data in the store is deleted. IsLogged and isAdmin both are set to false. The middleware read no user logged, redirect to this page. Here is the posibility the same user is in the app if did not log out.
   mounted() {
     if (localStorage.getItem("token")) {
-      this.$store.state.isLogged = true;
-      this.$router.push("/");
+      this.$store.commit("setLoggedStorage");
+      let infoToken = parseJwt(localStorage.getItem("token"));
+      if (infoToken.hasOwnProperty("Admin")) {
+        this.$store.commit("setReloadIsAdmin");
+      }
+      this.$store
+        .dispatch("refreshUsers", infoToken)
+        .then(this.$router.push("/"));
     }
   },
 };

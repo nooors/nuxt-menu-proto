@@ -17,18 +17,7 @@ export default {
     return false;
   },
   getIsAdmin(state) {
-    // alert("getAdmin");
-    // if (localStorage.getItem("Admin") === "Admin") {
-    //   return true;
-    // }
-    // return false;
-
-    if (!!state.userLogged.Admin) {
-      alert("Admin true");
-      return true;
-    }
-    alert("Admin false");
-    return false;
+    return state.isAdmin;
   },
   getUsers(state) {
     return state.Users;

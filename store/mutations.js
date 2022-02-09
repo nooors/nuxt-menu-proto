@@ -5,25 +5,19 @@ export default {
     console.log(typeof payload);
     state.userLogged = payload;
     if (payload.hasOwnProperty("Admin")) {
-      localStorage.setItem("Admin", payload.Admin);
+      state.isAdmin = true;
     }
     localStorage.setItem("user", payload.User);
 
     localStorage.setItem("email", payload.email);
   },
+  setReloadIsAdmin: (state) => {
+    state.isAdmin = true;
+  },
   setUsers: (state, payload) => {
     state.Users = payload;
   },
-  setUser: (state, payload) => {
-    state.user = payload;
-  },
-  setUserStorage: (state) => {
-    if (localStorage.getItem("Admin")) {
-      state.userLogged.Admin = localStorage.getItem("Admin");
-    }
-    state.userLogged.user = localStorage.getItem("user");
-    state.userLogged.email = localStorage.getItem("email");
-  },
+
   setLoggedStorage: (state) => {
     state.isLogged = true;
   },
@@ -40,6 +34,7 @@ export default {
   },
   logOut: (state) => {
     state.isLogged = false;
+    state.isAdmin = false;
     state.token = "";
     state.user = {};
     state.userLogged = {};

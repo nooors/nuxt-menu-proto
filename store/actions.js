@@ -36,25 +36,16 @@ export default {
       let tokenParsed = parseJwt(response.token);
       await commit("isLogged", response.token);
       await commit("setUserLogged", tokenParsed);
-      console.log(tokenParsed);
+      dispatch("getUsers");
     } catch {
       alert("Incorrect password or email");
     }
-    dispatch("getUsers");
   },
 
   logOut({ commit }) {
     commit("LogOut");
   },
 
-  async getMenu({ commit }) {
-    try {
-      const response = await this.$axios.$get("http://localhost:3000/menu");
-      commit("setMenu", response);
-    } catch (error) {
-      console.log(error);
-    }
-  },
   async getUsers({ commit, getters }) {
     try {
       const response = await this.$axios.$get(`${apiBase}Accounts`, {
@@ -63,12 +54,8 @@ export default {
           Authorization: `Bearer ${getters.getToken}`,
         },
       });
+
       commit("setUsers", response);
-      let user = getters.getUsers.filter(
-        (a) => a.userName === getters.getUserLogged.email
-      );
-      console.log(user[0]);
-      commit("setUser", user[0]);
     } catch (error) {
       console.log(error);
     }
@@ -98,6 +85,18 @@ export default {
       console.log(error);
     }
   },
+  async refreshUsers({ commit, dispatch }, user) {
+    await commit("setUserLogged", user);
+    await dispatch("getUsers");
+  },
+  async getMenu({ commit }) {
+    try {
+      const response = await this.$axios.$get("http://localhost:3000/menu");
+      commit("setMenu", response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
   async getProducts({ commit, getters }) {
     try {
       const response = await this.$axios.$get(`${apiBase}Products`, {
@@ -112,7 +111,6 @@ export default {
     }
   },
   async editProduct({ getters, dispatch }, product) {
-    alert("dipatch");
     console.log(product);
     try {
       const response = await this.$axios.$put(
