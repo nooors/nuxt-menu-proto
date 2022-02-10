@@ -17,6 +17,7 @@
 <script>
 import TheDailyMenu from "~/components/TheDailyMenu.vue";
 import TheLanguages from "~/components/TheLanguages.vue";
+import { menu } from "~/utils/api";
 export default {
   data() {
     return {
@@ -24,9 +25,10 @@ export default {
     };
   },
   components: { TheDailyMenu, TheLanguages },
-  async fetch() {
-    await this.$store.dispatch("getMenu");
-    this.menuStore = this.$store.getters.getMenu;
+
+  // Here will be a dispatch call to actions, in order to fetch data from the API. This is fake version
+  created() {
+    this.menu = menu;
   },
   // beforeCreate() {
   //   this.$store.dispatch("getMenu");
@@ -35,14 +37,6 @@ export default {
   computed: {
     language: function () {
       return this.$store.getters.getLanguageSelected;
-    },
-    menuStore: function () {
-      return this.$store.getters.getMenu;
-    },
-  },
-  watch: {
-    menuStore: function () {
-      this.menu = this.$store.getters.getMenu;
     },
   },
 };

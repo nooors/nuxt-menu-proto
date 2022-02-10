@@ -38,6 +38,7 @@
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <!-- <the-avatar v-if="isLogged" /> -->
+      <the-avatar></the-avatar>
       <v-icon left dark></v-icon
       ><v-switch
         v-model="$vuetify.theme.dark"

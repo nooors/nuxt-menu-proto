@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-5" elevation="10" shaped>
+  <v-card class="pa-5 mx-16" elevation="10" shaped>
     <v-row>
       <v-col class="d-flex justify-end mr-4">
         {{ menu.InitDate }}

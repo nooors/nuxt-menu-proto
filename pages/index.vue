@@ -2,6 +2,9 @@
   <v-row>
     <v-col class="d-flex justify-center align-center">
       <nuxt-menu-logo></nuxt-menu-logo>
+      <v-btn fab  color="pink" nuxt to="/Home" absolute bottom left>
+      <v-icon>mdi-comment-arrow-left</v-icon>
+      </v-btn>
     </v-col>
     <v-divider vertical></v-divider>
     <v-col>
