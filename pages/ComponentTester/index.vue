@@ -11,6 +11,9 @@
     <nuxt-link to="ComponentTester/cardLanguages">Card Languages</nuxt-link>
     <nuxt-link to="ComponentTester/arrayTest">Array test</nuxt-link>
     <nuxt-link to="ComponentTester/selectForm">Select Form</nuxt-link>
+    <nuxt-link to="ComponentTester/selectForm">Select Form</nuxt-link>
+    <nuxt-link to="ComponentTester/autocomplete">Autocomplete</nuxt-link>
+    <nuxt-link to="ComponentTester/layout">Autocomplete</nuxt-link>
   </div>
 </template>
 

@@ -1,9 +1,7 @@
 <template>
   <v-container class="d-flex flex-column">
     <h1 class="mb-5">{{ name }}</h1>
-    <v-row>
-      <v-col cols="3"> </v-col>
-    </v-row>
+
     <v-card class="mb-7 mr-7 px-7 py-3" shaped elevation="10">
       <slot name="table-content"></slot>
     </v-card>

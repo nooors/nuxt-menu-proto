@@ -1,7 +1,7 @@
 <template>
   <div>
     <pre>
-            {{ products[0] }}
+            {{ products }}
         </pre
     >
   </div>
@@ -16,16 +16,16 @@ export default {
     };
   },
   async fetch() {
-    await this.$store.dispatch("getProducts");
+    await this.$store.dispatch("getFamilies");
   },
   computed: {
     productsStore: function () {
-      return this.$store.getters.getProducts;
+      return this.$store.getters.getFamilies;
     },
   },
   watch: {
     productsStore: function () {
-      this.products = this.$store.getters.getProducts.map((a) => {
+      this.products = this.$store.getters.getFamilies.map((a) => {
         return { ...a };
       });
     },

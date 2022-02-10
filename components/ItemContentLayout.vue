@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="mx-xl-16 mx-lg-16 mx-md-10 mx-sm-10 mx-xs-5">
     <v-row class="mb-5 mt-3">
-      <v-col cols="9">
+      <v-col cols="4">
         <h1 class="mb-5">{{ name }}</h1>
       </v-col>
+
       <v-col class="d-flex justify-end">
         <v-tooltip top>
           <template v-slot:activator="{ on, plus }">
@@ -73,7 +74,7 @@
         elevation="10"
         v-for="item in items"
         :key="item.id"
-        max-width="200"
+        width="200"
       >
         <slot name="card-content">
           <v-card-title class="text-center body-1">
@@ -150,7 +151,9 @@
 </template>
 
 <script>
+import Autocomplete from "./Autocomplete.vue";
 export default {
+  components: { Autocomplete },
   name: "ItemContentLayout",
   props: ["name", "items", "label"],
   data() {
@@ -162,6 +165,7 @@ export default {
       formTemp: [],
       dialog: false,
       newItem: "",
+      autoModel: null,
     };
   },
   methods: {
