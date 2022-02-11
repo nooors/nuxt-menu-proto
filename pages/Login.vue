@@ -65,7 +65,7 @@ export default {
       }
     },
     logged() {
-      return this.$router.push("/");
+      return this.$router.push("/Home");
     },
   },
 

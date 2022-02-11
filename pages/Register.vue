@@ -98,7 +98,7 @@
                 :type="show2 ? 'text' : 'password'"
                 name="input-10-2"
                 label="Password"
-                hint="At least 8 characters"
+                hint="At least 8 characters, min 1 uppercase 1 lowercase 1 number 1 symbol"
                 value=""
                 v-model="dataValues.password"
                 class="input-group--focused"
