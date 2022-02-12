@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import { parseJwt } from "~/utils/api";
 export default {
   data() {
     return {
@@ -37,30 +36,21 @@ export default {
   // async fetch() {
   //   await this.$store.dispatch("getUsers");
   // },
-  mounted() {
-    if (localStorage.getItem("token") !== null) {
-      this.user = parseJwt(localStorage.getItem("token"));
-    }
-  },
   computed: {
     currentUser: function () {
-      let userAux = this.$store.getters.getUsers.filter(
-        (a) => a.userName === this.user.email
-      );
-      console.log(`userAux ${userAux}`);
-      return Object.assign(userAux);
+      return this.$store.getters.getCurrentUser;
     },
   },
 
   watch: {
     currentUser: function () {
-      this.avatar.name = this.currentUser[0].name;
-      this.avatar.lastName = this.currentUser[0].surName;
-      this.avatar.email = this.currentUser[0].userName;
-      this.avatar.role = this.currentUser[0].roles.includes("Admin")
+      this.avatar.name = this.currentUser.name;
+      this.avatar.lastName = this.currentUser.surName;
+      this.avatar.email = this.currentUser.userName;
+      this.avatar.role = this.currentUser.roles.includes("Admin")
         ? "Admin"
         : "User";
-      this.avatar.phoneNumber = this.currentUser[0].phoneNumber;
+      this.avatar.phoneNumber = this.currentUser.phoneNumber;
       this.avatar.short =
         this.avatar.name.charAt(0).toUpperCase() +
         this.avatar.lastName.charAt(0).toUpperCase();

@@ -1,9 +1,7 @@
 export default {
   setUserLogged: (state, payload) => {
-    console.log("payload");
-    console.log(payload);
-    console.log(typeof payload);
     state.userLogged = payload;
+    state.isLogged = true;
     if (payload.hasOwnProperty("Admin")) {
       state.isAdmin = true;
     }
@@ -18,9 +16,10 @@ export default {
     state.Users = payload;
   },
 
-  setLoggedStorage: (state) => {
-    state.isLogged = true;
+  setCurrentUser: (state, user) => {
+    state.currentUser = user;
   },
+
   setMenu: (state, payload) => {
     state.menu = payload;
   },

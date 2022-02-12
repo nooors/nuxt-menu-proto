@@ -71,15 +71,13 @@ export default {
 
   // When any page is reloaded the data in the store is deleted. IsLogged and isAdmin both are set to false. The middleware read no user logged, redirect to this page. Here is the posibility the same user is in the app if did not log out.
   mounted() {
-    if (localStorage.getItem("token")) {
-      this.$store.commit("setLoggedStorage");
+    if (localStorage.getItem("token") !== null) {
       let infoToken = parseJwt(localStorage.getItem("token"));
-      if (infoToken.hasOwnProperty("Admin")) {
-        this.$store.commit("setReloadIsAdmin");
-      }
+      this.$store.commit("setUserLogged", infoToken);
+
       this.$store
-        .dispatch("refreshUsers", infoToken)
-        .then(this.$router.push("/"));
+        .dispatch("getUserById", infoToken.email)
+        .then(this.$router.push("/Home"));
     }
   },
 };

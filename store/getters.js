@@ -22,8 +22,8 @@ export default {
   getUsers(state) {
     return state.Users;
   },
-  getUser(state) {
-    return state.user;
+  getCurrentUser(state) {
+    return state.currentUser;
   },
   getLanguages(state) {
     return state.languages;

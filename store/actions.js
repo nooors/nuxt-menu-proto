@@ -36,7 +36,7 @@ export default {
       let tokenParsed = parseJwt(response.token);
       await commit("isLogged", response.token);
       await commit("setUserLogged", tokenParsed);
-      dispatch("getUsers");
+      dispatch("getUserById", tokenParsed.email);
     } catch {
       alert("Incorrect password or email");
     }
@@ -58,6 +58,21 @@ export default {
       commit("setUsers", response);
     } catch (error) {
       console.log(error);
+    }
+  },
+  async getUserById({ commit, getters }, userId) {
+    try {
+      const response = await this.$axios.$get(`${apiBase}Accounts/${userId}`, {
+        headers: {
+          Content_Type: "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
+        },
+      });
+      console.log("reponse");
+      console.log(response);
+      commit("setCurrentUser", response);
+    } catch (e) {
+      console.log(e);
     }
   },
   async updateUser({ getters, dispatch }, payload) {
@@ -84,10 +99,6 @@ export default {
     } catch (error) {
       console.log(error);
     }
-  },
-  async refreshUsers({ commit, dispatch }, user) {
-    await commit("setUserLogged", user);
-    await dispatch("getUsers");
   },
   async getMenu({ commit }) {
     try {
