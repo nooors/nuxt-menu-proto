@@ -1,5 +1,10 @@
 <template>
   <div class="login">
+    <fetch-error
+      :dialog="errorDialog"
+      :cardText="error"
+      :cardStatus="error.status"
+    ></fetch-error>
     <v-card-title class="d-flex justify-center">
       Login
     </v-card-title>
@@ -46,6 +51,7 @@
 
 <script>
 import { parseJwt } from "~/utils/api";
+
 export default {
   layout: "authenticate",
   data() {
@@ -55,17 +61,32 @@ export default {
         required: (value) => !!value || "Required.",
       },
       login: { email: "", password: "" },
+      errorDialog: false,
+      error: {},
     };
   },
 
   methods: {
-    Submit() {
+    async Submit() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch("login", this.login).then(this.logged);
+        try {
+          await this.$store.dispatch("login", this.login).then(this.logged);
+        } catch (errors) {
+          this.showError(errors);
+        }
       }
     },
     logged() {
       return this.$router.push("/Home");
+    },
+    showError(errors) {
+      errors.message.includes("400")
+        ? (this.error = "Invalid user or password")
+        : "Network error, please try again";
+      this.errorDialog = true;
+      setTimeout(() => {
+        this.errorDialog = false;
+      }, 5000);
     },
   },
 

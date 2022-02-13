@@ -28,18 +28,14 @@ export default {
     }
   },
   async login({ commit, dispatch }, payload) {
-    try {
-      const response = await this.$axios.$post(
-        `${apiBase}Accounts/login`,
-        payload
-      );
-      let tokenParsed = parseJwt(response.token);
-      await commit("isLogged", response.token);
-      await commit("setUserLogged", tokenParsed);
-      dispatch("getUserById", tokenParsed.email);
-    } catch {
-      alert("Incorrect password or email");
-    }
+    const response = await this.$axios.$post(
+      `${apiBase}Accounts/login`,
+      payload
+    );
+    let tokenParsed = parseJwt(response.token);
+    await commit("isLogged", response.token);
+    await commit("setUserLogged", tokenParsed);
+    dispatch("getUserById", tokenParsed.email);
   },
 
   logOut({ commit }) {

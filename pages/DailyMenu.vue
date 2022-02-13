@@ -17,7 +17,7 @@
 <script>
 import TheDailyMenu from "~/components/TheDailyMenu.vue";
 import TheLanguages from "~/components/TheLanguages.vue";
-import { menu } from "~/utils/api";
+import { menu } from "~/utils/fakeMenu.js";
 export default {
   data() {
     return {
@@ -26,7 +26,7 @@ export default {
   },
   components: { TheDailyMenu, TheLanguages },
 
-  // Here will be a dispatch call to actions, in order to fetch data from the API. This is fake version
+  // Here will be a dispatch calling to actions, in order to fetch data from the API. This is fake version
   created() {
     this.menu = menu;
   },
