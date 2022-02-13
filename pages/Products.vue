@@ -209,7 +209,7 @@ export default {
       },
 
       { text: "Families", value: "familiesDTO.name" },
-      { text: "Departments", value: "`departmentsDTO[${this.language}].name`" },
+      { text: "Departments", value: "departmentsDTO[0].name" },
       { text: "Product Types", value: "ptypesDTO.name" },
       { text: "Description", value: "descriptionDTOs[0].name" },
       { text: "Actions", value: "actions", sortable: false },
