@@ -2,12 +2,10 @@
   <item-content-layout
     :name="item.name"
     :items="item.families"
-    :label="item.label"
     @addNewItem="addNewFamily"
     @updateItem="updateFamily"
     @deleteItem="deleteFamily"
-  >
-  </item-content-layout>
+  ></item-content-layout>
 </template>
 
 <script>
@@ -19,7 +17,6 @@ export default {
       item: {
         name: "Families",
         families: [],
-        label: "New Family",
       },
     };
   },
@@ -40,6 +37,7 @@ export default {
   },
   methods: {
     addNewFamily: function (payload) {
+      alert("newFamily");
       this.$store.dispatch("addFamily", payload);
     },
     updateFamily: function (id, name) {
@@ -56,12 +54,4 @@ export default {
 };
 </script>
 
-<style scoped>
-v-container {
-  height: 90vh;
-}
-.v-menu__content {
-  overflow: unset;
-  contain: unset;
-}
-</style>
+<style></style>

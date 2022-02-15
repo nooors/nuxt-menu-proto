@@ -1,7 +1,5 @@
 <template>
-  <h1>
-    Languages
-  </h1>
+  <languages-input></languages-input>
 </template>
 
 <script>

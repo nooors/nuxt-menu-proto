@@ -1,0 +1,18 @@
+export default () => ({
+  authenticate: false,
+  Users: null,
+  menu: null,
+  languages: ["Español", "Català", "English"],
+  languageSelected: 0,
+  isLogged: false,
+  isAdmin: false,
+  products: [],
+  families: [],
+  familyId: {},
+  ptypes: [],
+  ptypeId: {},
+  departments: [],
+  token: "",
+  userLogged: {},
+  currentUser: {},
+});

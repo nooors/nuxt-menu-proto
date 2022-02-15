@@ -6,9 +6,17 @@
           <v-row>
             <v-col class="d-flex justify-center">
               <v-card elevation="10" shaped class="py-4 px-6">
-                <v-form>
-                  <nuxt />
-                </v-form>
+                <button
+                  type="button"
+                  class="v-btn v-btn--icon v-btn--round theme--light v-size--default"
+                  aria-label="invert-example-colors"
+                  @click="checkTheme"
+                >
+                  <v-icon>
+                    mdi-invert-colors
+                  </v-icon>
+                </button>
+                <nuxt />
               </v-card>
             </v-col>
           </v-row>
@@ -21,6 +29,11 @@
 <script>
 export default {
   name: "authenticate",
+  methods: {
+    checkTheme: function () {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
+  },
 };
 </script>
 

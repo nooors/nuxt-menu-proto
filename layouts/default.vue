@@ -29,36 +29,39 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
       </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
+      <!-- <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
+      </v-btn> -->
+      <!-- <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>mdi-minus</v-icon>
-      </v-btn>
+      </v-btn> -->
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <!-- <the-avatar v-if="isLogged" /> -->
+      <the-avatar></the-avatar>
       <v-icon left dark></v-icon
       ><v-switch
         v-model="$vuetify.theme.dark"
-        prepend-icon="mdi-lightbulb-variant-outline"
-        append-icon="mdi-lightbulb-variant"
-        >mdi-lightbulb-variant</v-switch
-      >
+        prepend-icon="mdi-invert-colors"
+      ></v-switch>
     </v-app-bar>
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer :absolute="!fixed" app>
+    <!-- <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 
 <script>
+import TheAvatar from "~/components/TheAvatar.vue";
 export default {
+  components: { TheAvatar },
   name: "DefaultLayout",
+  middleware: "auth",
   data() {
     return {
       clipped: false,
@@ -66,14 +69,19 @@ export default {
       fixed: false,
       items: [
         {
-          icon: "mdi-earth",
-          title: "Languages",
-          to: "/Languages",
+          icon: "mdi-home",
+          title: "Home",
+          to: "/Home",
         },
         {
-          icon: "mdi-apps",
-          title: "Welcome",
-          to: "/",
+          icon: "mdi-silverware ",
+          title: "Daily-menu",
+          to: "/DailyMenu",
+        },
+        {
+          icon: "mdi-set-none",
+          title: "Product Types",
+          to: "/PTypes",
         },
         {
           icon: "mdi-family-tree",
@@ -90,17 +98,57 @@ export default {
           title: "Products",
           to: "/Products",
         },
-        {
-          icon: "mdi-silverware ",
-          title: "Daily-menu",
-          to: "/DailyMenu",
-        },
       ],
       miniVariant: false,
       right: true,
-      title: "Vuetify.js",
+      title: "Menu-Nuxt",
       dark: true,
     };
   },
+  computed: {
+    isLogged: function () {
+      console.log("isLogged");
+      let result = this.$store.getters.getIsLogged;
+
+      return result;
+    },
+    isAdmin: function () {
+      let result = this.$store.getters.getIsAdmin;
+      return result;
+    },
+  },
+  created() {
+    if (this.$store.getters.getIsAdmin) {
+      this.items.push(
+        {
+          icon: "mdi-account-plus-outline",
+          title: "Register",
+          to: "/Register",
+        },
+        {
+          icon: "mdi-account-outline",
+          title: "Users",
+          to: "/Users",
+        },
+        {
+          icon: "mdi-vuetify ",
+          title: "Pruebas",
+          to: "/ComponentTester",
+        }
+      );
+    }
+    if (this.isLogged) {
+      this.items.push({
+        icon: "mdi-logout ",
+        title: "Log Out",
+        to: "/LogOut",
+      });
+    }
+  },
 };
 </script>
+<style lang="scss" scoped>
+html {
+  overflow-y: auto;
+}
+</style>
