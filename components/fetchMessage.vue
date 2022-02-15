@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" max-width="400">
       <v-card>
         <v-card-title class="text-center">
-          Athentication error
+          {{ cardTitle }}
         </v-card-title>
 
         <v-card-text class="text-center pink--text">
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  props: ["dialog", "cardText", "cardStatus"],
+  props: ["dialog", "cardText", "cardTitle"],
 };
 </script>
 

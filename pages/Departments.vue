@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     addNewDepartment: function (payload) {
-      alert("newFamily");
       this.$store.dispatch("addDepartment", payload);
     },
     updateDepartment: function (id, name) {

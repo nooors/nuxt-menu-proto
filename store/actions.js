@@ -3,29 +3,28 @@ import { apiBase } from "~/utils/api";
 
 export default {
   async Register({ getters }, payload) {
-    try {
-      const response = await this.$axios.$post(
-        `${apiBase}Accounts/register`,
-        {
-          eMail: payload.email,
-          password: payload.password,
-          phoneNumber: payload.phone,
-          role: payload.rol,
-          name: payload.firstName,
-          surName: payload.lastName,
-          AvatarImagePath: "",
+    const response = await this.$axios.$post(
+      `${apiBase}Accounts/register`,
+      {
+        eMail: payload.email,
+        password: payload.password,
+        phoneNumber: payload.phone,
+        role: payload.rol,
+        name: payload.firstName,
+        surName: payload.lastName,
+        AvatarImagePath: "",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${getters.getToken}`,
-          },
-        }
-      );
-      $nuxt.$router.push("/Users");
-    } catch (response) {
-      console.log(response);
-    }
+      }
+    );
+    // if register gone well you can see an other user in user list
+    // $nuxt.$router.push("/Users");
+
+    console.log(response);
   },
   async login({ commit, dispatch }, payload) {
     const response = await this.$axios.$post(
@@ -119,145 +118,134 @@ export default {
   },
   async editProduct({ getters, dispatch }, product) {
     console.log(product);
-    try {
-      const response = await this.$axios.$put(
-        `${apiBase}Products`,
 
-        {
-          id: product.id,
-          familiesDTO: {
-            id: product.familiesDTO.id,
-            name: product.familiesDTO.name,
-          },
-          ptypesDTO: {
-            id: product.ptypesDTO.id,
-            name: product.ptypesDTO.name,
-          },
-          departmentsId: [product.departmentsDTO[0].id],
-          shortNameCreateDTO: [
-            {
-              id: product.shortNameCreateDTO[0].id,
-              name: product.shortNameCreateDTO[0].name,
-              lang: product.shortNameCreateDTO[0].lang,
-            },
-            {
-              id: product.shortNameCreateDTO[1].id,
-              name: product.shortNameCreateDTO[1].name,
-              lang: product.shortNameCreateDTO[1].lang,
-            },
-            {
-              id: product.shortNameCreateDTO[2].id,
-              name: product.shortNameCreateDTO[2].name,
-              lang: product.shortNameCreateDTO[2].lang,
-            },
-          ],
-          descriptionDTOs: [
-            {
-              id: product.descriptionDTOs[0].id,
-              name: product.descriptionDTOs[0].name,
-              lang: product.descriptionDTOs[0].lang,
-            },
-            {
-              id: product.descriptionDTOs[1].id,
-              name: product.descriptionDTOs[1].name,
-              lang: product.descriptionDTOs[1].lang,
-            },
-            {
-              id: product.descriptionDTOs[2].id,
-              name: product.descriptionDTOs[2].name,
-              lang: product.descriptionDTOs[2].lang,
-            },
-          ],
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${getters.getToken}`,
-          },
-        }
-      );
-      dispatch("getProducts");
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  async addProduct({ getters, dispatch }, product) {
-    try {
-      const response = await this.$axios.$post(
-        `${apiBase}Products`,
+    const response = await this.$axios.$put(
+      `${apiBase}Products`,
 
-        {
-          id: 0,
-          familiesDTO: {
-            id: product.familiesDTO.id,
-            name: product.familiesDTO.name,
-          },
-          ptypesDTO: {
-            id: product.ptypesDTO.id,
-            name: product.ptypesDTO.name,
-          },
-          departmentsId: [product.departmentsDTO[0].id],
-          shortNameCreateDTO: [
-            {
-              id: 0,
-              name: product.shortNameCreateDTO[0].name,
-              lang: "es",
-            },
-            {
-              id: 0,
-              name: product.shortNameCreateDTO[1].name,
-              lang: "ca",
-            },
-            {
-              id: 0,
-              name: product.shortNameCreateDTO[2].name,
-              lang: "en",
-            },
-          ],
-          descriptionDTOs: [
-            {
-              id: 0,
-              name: product.descriptionDTOs[0].name,
-              lang: "es",
-            },
-            {
-              id: 0,
-              name: product.descriptionDTOs[1].name,
-              lang: "ca",
-            },
-            {
-              id: 0,
-              name: product.descriptionDTOs[2].name,
-              lang: "en",
-            },
-          ],
+      {
+        id: product.id,
+        familiesDTO: {
+          id: product.familiesDTO.id,
+          name: product.familiesDTO.name,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${getters.getToken}`,
+        ptypesDTO: {
+          id: product.ptypesDTO.id,
+          name: product.ptypesDTO.name,
+        },
+        departmentsId: [product.departmentsDTO[0].id],
+        shortNameCreateDTO: [
+          {
+            id: product.shortNameCreateDTO[0].id,
+            name: product.shortNameCreateDTO[0].name,
+            lang: product.shortNameCreateDTO[0].lang,
           },
-        }
-      );
-      dispatch("getProducts");
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  async deleteProduct({ dispatch, getters }, id) {
-    try {
-      const response = await this.$axios.$delete(`${apiBase}Products/${id}`, {
+          {
+            id: product.shortNameCreateDTO[1].id,
+            name: product.shortNameCreateDTO[1].name,
+            lang: product.shortNameCreateDTO[1].lang,
+          },
+          {
+            id: product.shortNameCreateDTO[2].id,
+            name: product.shortNameCreateDTO[2].name,
+            lang: product.shortNameCreateDTO[2].lang,
+          },
+        ],
+        descriptionDTOs: [
+          {
+            id: product.descriptionDTOs[0].id,
+            name: product.descriptionDTOs[0].name,
+            lang: product.descriptionDTOs[0].lang,
+          },
+          {
+            id: product.descriptionDTOs[1].id,
+            name: product.descriptionDTOs[1].name,
+            lang: product.descriptionDTOs[1].lang,
+          },
+          {
+            id: product.descriptionDTOs[2].id,
+            name: product.descriptionDTOs[2].name,
+            lang: product.descriptionDTOs[2].lang,
+          },
+        ],
+      },
+      {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getters.getToken}`,
         },
-      });
-      dispatch("getProducts");
-    } catch (error) {
-      console.log(error);
-    }
+      }
+    );
+    dispatch("getProducts");
+    console.log(response);
+  },
+  async addProduct({ getters, dispatch }, product) {
+    const response = await this.$axios.$post(
+      `${apiBase}Products`,
+
+      {
+        id: 0,
+        familiesDTO: {
+          id: product.familiesDTO.id,
+          name: product.familiesDTO.name,
+        },
+        ptypesDTO: {
+          id: product.ptypesDTO.id,
+          name: product.ptypesDTO.name,
+        },
+        departmentsId: [product.departmentsDTO[0].id],
+        shortNameCreateDTO: [
+          {
+            id: 0,
+            name: product.shortNameCreateDTO[0].name,
+            lang: "es",
+          },
+          {
+            id: 0,
+            name: product.shortNameCreateDTO[1].name,
+            lang: "ca",
+          },
+          {
+            id: 0,
+            name: product.shortNameCreateDTO[2].name,
+            lang: "en",
+          },
+        ],
+        descriptionDTOs: [
+          {
+            id: 0,
+            name: product.descriptionDTOs[0].name,
+            lang: "es",
+          },
+          {
+            id: 0,
+            name: product.descriptionDTOs[1].name,
+            lang: "ca",
+          },
+          {
+            id: 0,
+            name: product.descriptionDTOs[2].name,
+            lang: "en",
+          },
+        ],
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getters.getToken}`,
+        },
+      }
+    );
+    dispatch("getProducts");
+    console.log(response);
+  },
+  async deleteProduct({ dispatch, getters }, id) {
+    const response = await this.$axios.$delete(`${apiBase}Products/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getters.getToken}`,
+      },
+    });
+    dispatch("getProducts");
   },
   async getFamilies({ commit, getters }) {
     try {

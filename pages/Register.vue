@@ -1,5 +1,10 @@
 <template>
   <div class="login d-flex justify-center mt-12">
+    <fetch-message
+      :dialog="componentProps.dialog"
+      :cardTitle="componentProps.cardTitle"
+      :cardText="componentProps.cardText"
+    ></fetch-message>
     <v-card shaped elevation="10">
       <v-card-title class="ml-5">
         Register
@@ -94,7 +99,7 @@
             <v-col>
               <v-text-field
                 :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="[rules.required, rules.min]"
+                :rules="[rules.required, rules.password]"
                 :type="show2 ? 'text' : 'password'"
                 name="input-10-2"
                 label="Password"
@@ -109,13 +114,13 @@
             <v-col>
               <v-text-field
                 :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="[rules.required, rules.min]"
+                :rules="[rules.required, rules.password, rules.confirm]"
                 :type="show2 ? 'text' : 'password'"
                 name="input-10-2"
                 label="Confim password"
                 hint="At least 8 characters"
                 value=""
-                v-model="dataValues.password"
+                v-model="dataValues.passwordConfirm"
                 class="input-group--focused"
                 @click:append="show2 = !show2"
               ></v-text-field>
@@ -134,7 +139,9 @@
 </template>
 
 <script>
+import fetchMessage from "~/components/fetchMessage.vue";
 export default {
+  components: { fetchMessage },
   layout: "default",
   data() {
     return {
@@ -154,23 +161,56 @@ export default {
           const pattern = /^[0-9]{9}/;
           return pattern.test(value) || "Invalid number.";
         },
+        password: (value) => {
+          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/;
+          return pattern.test(value) || "Invalid password format";
+        },
+        confirm: () => {
+          return (
+            this.password === this.passwordConfirm || "Passwords must match"
+          );
+        },
       },
       items: ["Admin", "User", "Guest"],
       dataValues: {
         email: "",
         password: "",
+        passwordConfirm: "",
         firstName: "",
         lastName: "",
         phone: "",
         rol: "",
+      },
+      componentProps: {
+        dialog: false,
+        cardText: "",
+        cardTitle: "",
       },
     };
   },
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch("Register", this.dataValues);
+        try {
+          this.$store.dispatch("Register", this.dataValues);
+          this.componentProps.cardText = "User Register Succes";
+          this.componentProps.cardTitle = "Everything has gone nice";
+          this.timeOut;
+          $nuxt.$router.push("/Users");
+        } catch (error) {
+          this.componentProps.cardTitle =
+            "Ooops somethig went wrong, please try again";
+          this.componentProps.cardText = error;
+          this.timeOut;
+          this.$refs.form.reset();
+        }
       }
+    },
+    timeOut() {
+      setTimeout(function () {
+        this.componentProps.dialog = true;
+      }, 2000);
+      this.componentProps.dialog = false;
     },
   },
 };

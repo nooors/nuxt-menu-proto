@@ -1,10 +1,11 @@
 <template>
   <div class="login">
-    <fetch-error
+    <fetch-message
       :dialog="errorDialog"
       :cardText="error"
       :cardStatus="error.status"
-    ></fetch-error>
+      cardTitle="Athentication error"
+    ></fetch-message>
     <v-card-title class="d-flex justify-center">
       Login
     </v-card-title>
