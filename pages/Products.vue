@@ -1,194 +1,211 @@
 <template>
-  <table-content-layout :name="name" :openDialog="dialogOpen">
-    <template v-slot:table-content>
-      <v-data-table :headers="headers" :items="products">
-        <template v-slot:top>
-          <v-toolbar class="mt-3" elevation="0">
-            <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" max-width="800px" elevation="10">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  color="pink"
-                  dark
-                  class="mb-2"
-                  v-bind="attrs"
-                  v-on="on"
-                  fab
-                >
-                  <v-icon>mdi-plus</v-icon>
-                </v-btn>
-              </template>
-              <v-card shaped elevation="elevation-10">
-                <v-card-title>
-                  <span class="text-h5">{{ formTitle }}</span>
-                </v-card-title>
-
-                <form ref="formValidate" lazy-validation>
-                  <v-card-text>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-dialog v-model="shortNameDialog" max-width="800px">
-                            <languages-input
-                              @languages="editShortName"
-                              @closeDialog="shortNameDialog = false"
-                              :propSpanish="
-                                editedItem.shortNameCreateDTO[0].name
-                              "
-                              :propCatalan="
-                                editedItem.shortNameCreateDTO[1].name
-                              "
-                              :propEnglish="
-                                editedItem.shortNameCreateDTO[2].name
-                              "
-                            ></languages-input>
-                          </v-dialog>
-                          <v-textarea
-                            v-model="
-                              editedItem.shortNameCreateDTO[language].name
-                            "
-                            label="Product name"
-                            hint="Product name"
-                            persistent-hint
-                            rows="2"
-                            auto-grow
-                            row-height="15"
-                            :rules="[rules.required]"
-                            @click.stop="shortNameDialog = true"
-                          ></v-textarea>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-select
-                            v-model="editedItem.familiesDTO"
-                            :items="families"
-                            item-text="name"
-                            item-value="id"
-                            return-object
-                            label="Family"
-                            :menu-props="{ maxHeight: '400' }"
-                            hint="Family"
-                            persistent-hint
-                            :rules="[rules.required]"
-                            single-line
-                          ></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-select
-                            v-model="editedItem.departmentsDTO[0]"
-                            :items="departments"
-                            item-text="name"
-                            item-value="id"
-                            return-object
-                            label="Departments"
-                            hint="Departments"
-                            persistent-hint
-                            :rules="[rules.required]"
-                            single-line
-                          ></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-select
-                            v-model="editedItem.ptypesDTO"
-                            :items="pTypes"
-                            item-value="id"
-                            item-text="name"
-                            return-object
-                            label="Product types"
-                            hint="Product types"
-                            persistent-hint
-                            :rules="[rules.required]"
-                            single-line
-                          ></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-dialog
-                            v-model="descriptionDialog"
-                            max-width="800px"
-                          >
-                            <languages-input
-                              @languages="editDescription"
-                              @closeDialog="descriptionDialog = false"
-                              :propSpanish="editedItem.descriptionDTOs[0].name"
-                              :propCatalan="editedItem.descriptionDTOs[1].name"
-                              :propEngish="editedItem.descriptionDTOs[2].name"
-                            ></languages-input>
-                          </v-dialog>
-                          <v-textarea
-                            v-model="editedItem.descriptionDTOs[language].name"
-                            label="Description"
-                            hint="Description"
-                            persistent-hint
-                            rows="2"
-                            auto-grow
-                            :rules="[rules.required]"
-                            row-height="15"
-                            @click.stop="descriptionDialog = true"
-                          ></v-textarea>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card-text>
-                </form>
-                <div v-if="isInvalid">
-                  <p class="ml-5 pink--text">
-                    "You need to fill all the fields in order to create a new
-                    product"
-                  </p>
-                </div>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="pink" dark fab @click="close">
-                    <v-icon>
-                      mdi-close
-                    </v-icon>
-                  </v-btn>
-                  <v-btn color="pink" dark fab @click="save">
-                    <v-icon>
-                      mdi-content-save
-                    </v-icon>
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-            <v-dialog v-model="dialogDelete" max-width="500px">
-              <v-card>
-                <v-card-title class="text-h5"
-                  >Are you sure you want to delete this item?</v-card-title
-                >
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeDelete"
-                    >Cancel</v-btn
+  <div>
+    <fetch-message
+      :dialog="dialogProp"
+      :cardText="cardTextProp"
+      :cardTitle="cardTitleProp"
+    ></fetch-message>
+    <table-content-layout :name="name" :openDialog="dialogOpen">
+      <template v-slot:table-content>
+        <v-data-table :headers="headers" :items="products">
+          <template v-slot:top>
+            <v-toolbar class="mt-3" elevation="0">
+              <v-spacer></v-spacer>
+              <v-dialog v-model="dialog" max-width="800px" elevation="10">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    color="pink"
+                    dark
+                    class="mb-2"
+                    v-bind="attrs"
+                    v-on="on"
+                    fab
                   >
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                    >OK</v-btn
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
+                </template>
+                <v-card shaped elevation="elevation-10">
+                  <v-card-title>
+                    <span class="text-h5">{{ formTitle }}</span>
+                  </v-card-title>
+
+                  <form ref="formValidate" lazy-validation>
+                    <v-card-text>
+                      <v-container>
+                        <v-row>
+                          <v-col cols="12" sm="6" md="4">
+                            <v-dialog
+                              v-model="shortNameDialog"
+                              max-width="800px"
+                            >
+                              <languages-input
+                                @languages="editShortName"
+                                @closeDialog="shortNameDialog = false"
+                                :propSpanish="
+                                  editedItem.shortNameCreateDTO[0].name
+                                "
+                                :propCatalan="
+                                  editedItem.shortNameCreateDTO[1].name
+                                "
+                                :propEnglish="
+                                  editedItem.shortNameCreateDTO[2].name
+                                "
+                              ></languages-input>
+                            </v-dialog>
+                            <v-textarea
+                              v-model="
+                                editedItem.shortNameCreateDTO[language].name
+                              "
+                              label="Product name"
+                              hint="Product name"
+                              persistent-hint
+                              rows="2"
+                              auto-grow
+                              row-height="15"
+                              :rules="[rules.required]"
+                              @click.stop="shortNameDialog = true"
+                            ></v-textarea>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="4">
+                            <v-select
+                              v-model="editedItem.familiesDTO"
+                              :items="families"
+                              item-text="name"
+                              item-value="id"
+                              return-object
+                              label="Family"
+                              :menu-props="{ maxHeight: '400' }"
+                              hint="Family"
+                              persistent-hint
+                              :rules="[rules.required]"
+                              single-line
+                            ></v-select>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="4">
+                            <v-select
+                              v-model="editedItem.departmentsDTO[0]"
+                              :items="departments"
+                              item-text="name"
+                              item-value="id"
+                              return-object
+                              label="Departments"
+                              hint="Departments"
+                              persistent-hint
+                              :rules="[rules.required]"
+                              single-line
+                            ></v-select>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="4">
+                            <v-select
+                              v-model="editedItem.ptypesDTO"
+                              :items="pTypes"
+                              item-value="id"
+                              item-text="name"
+                              return-object
+                              label="Product types"
+                              hint="Product types"
+                              persistent-hint
+                              :rules="[rules.required]"
+                              single-line
+                            ></v-select>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="4">
+                            <v-dialog
+                              v-model="descriptionDialog"
+                              max-width="800px"
+                            >
+                              <languages-input
+                                @languages="editDescription"
+                                @closeDialog="descriptionDialog = false"
+                                :propSpanish="
+                                  editedItem.descriptionDTOs[0].name
+                                "
+                                :propCatalan="
+                                  editedItem.descriptionDTOs[1].name
+                                "
+                                :propEngish="editedItem.descriptionDTOs[2].name"
+                              ></languages-input>
+                            </v-dialog>
+                            <v-textarea
+                              v-model="
+                                editedItem.descriptionDTOs[language].name
+                              "
+                              label="Description"
+                              hint="Description"
+                              persistent-hint
+                              rows="2"
+                              auto-grow
+                              :rules="[rules.required]"
+                              row-height="15"
+                              @click.stop="descriptionDialog = true"
+                            ></v-textarea>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card-text>
+                  </form>
+                  <div v-if="isInvalid">
+                    <p class="ml-5 pink--text">
+                      "You need to fill all the fields in order to create a new
+                      product"
+                    </p>
+                  </div>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="pink" dark fab @click="close">
+                      <v-icon>
+                        mdi-close
+                      </v-icon>
+                    </v-btn>
+                    <v-btn color="pink" dark fab @click="save">
+                      <v-icon>
+                        mdi-content-save
+                      </v-icon>
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+              <v-dialog v-model="dialogDelete" max-width="500px">
+                <v-card>
+                  <v-card-title class="text-h5"
+                    >Are you sure you want to delete this item?</v-card-title
                   >
-                  <v-spacer></v-spacer>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-toolbar>
-        </template>
-        <template v-slot:item.actions="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item)" color="pink">
-            mdi-pencil
-          </v-icon>
-          <v-icon small @click="deleteItem(item)" color="pink">
-            mdi-delete
-          </v-icon>
-        </template>
-        <template v-slot:no-data> </template>
-      </v-data-table>
-    </template>
-  </table-content-layout>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="closeDelete"
+                      >Cancel</v-btn
+                    >
+                    <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                      >OK</v-btn
+                    >
+                    <v-spacer></v-spacer>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-toolbar>
+          </template>
+          <template v-slot:item.actions="{ item }">
+            <v-icon small class="mr-2" @click="editItem(item)" color="pink">
+              mdi-pencil
+            </v-icon>
+            <v-icon small @click="deleteItem(item)" color="pink">
+              mdi-delete
+            </v-icon>
+          </template>
+          <template v-slot:no-data> </template>
+        </v-data-table>
+      </template>
+    </table-content-layout>
+  </div>
 </template>
 
 <script>
+import fetchMessage from "~/components/fetchMessage.vue";
 import LanguagesInput from "~/components/LanguagesInput.vue";
 import tableContentLayout from "~/components/tableContentLayout.vue";
 export default {
-  components: { LanguagesInput, tableContentLayout },
+  components: { LanguagesInput, tableContentLayout, fetchMessage },
   data: () => ({
     families: [],
     pTypes: [],
@@ -232,6 +249,9 @@ export default {
     },
     name: "Products",
     isInvalid: false,
+    dialogProp: false,
+    cardTextProp: "",
+    cardTitleProp: "",
   }),
 
   async fetch() {
@@ -317,9 +337,27 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.$store.dispatch("deleteProduct", this.products[this.editedIndex].id);
-      this.refreshData();
-      this.closeDelete();
+      try {
+        this.$store.dispatch(
+          "deleteProduct",
+          this.products[this.editedIndex].id
+        );
+        this.cardTextProp = "This product won't bother again";
+        this.cardTitleProp = "Product deleted succesfully";
+        this.dialogProp = true;
+        setTimeout(() => {
+          this.dialogProp = false;
+        }, 4000);
+        this.refreshData();
+        this.closeDelete();
+      } catch (error) {
+        this.cardTextProp = "Try again please";
+        this.cardTitleProp = `Je suis desolée ${error}`;
+        this.dialogProp = true;
+        setTimeout(() => {
+          this.dialogProp = false;
+        }, 4000);
+      }
     },
 
     editShortName(payload) {
@@ -355,11 +393,40 @@ export default {
 
     save: function () {
       if (this.editedIndex > -1) {
-        this.$store.dispatch("editProduct", this.products[this.editedIndex]);
+        try {
+          this.$store.dispatch("editProduct", this.products[this.editedIndex]);
+          this.cardText = "The info user is updated";
+          this.cardTitle = "Everything is gonna be alright";
+          this.dialogProp = true;
+          setTimeout(() => {
+            this.componentProps.dialog = false;
+          }, 4000);
+        } catch (error) {
+          this.cardTextProp = "Try again";
+          this.cardTitleProp = "Sorry sugar something went wrong";
+          this.dialogProp = true;
+          setTimeout(() => {
+            this.dialogProp = false;
+          }, 4000);
+        }
       } else {
-        alert(this.validate());
         if (this.validate()) {
-          this.$store.dispatch("addProduct", this.editedItem);
+          try {
+            this.$store.dispatch("addProduct", this.editedItem);
+            this.cardTextProp = "A new user is added";
+            this.cardTitleProp = "Good Vibrations!";
+            this.dialogProp = true;
+            setTimeout(() => {
+              this.dialogProp = false;
+            }, 4000);
+          } catch (error) {
+            this.cardTextProp = "Try again, backend guy was drunk";
+            this.cardTitleProp = "Ooops, they did it again";
+            this.dialogProp = true;
+            setTimeout(() => {
+              this.dialogProp = false;
+            }, 4000);
+          }
         } else {
           this.isInvalid = true;
           return;
@@ -367,6 +434,7 @@ export default {
       }
       this.close();
     },
+
     validate: function () {
       if (
         this.editedItem.shortNameCreateDTO.some((a) => a.name === "") ||
@@ -384,7 +452,6 @@ export default {
       this.$store.dispatch("getProducts");
     },
     dialogOpen: function () {
-      alert("+");
       console.log(payload);
       return (this.dialog = true);
     },

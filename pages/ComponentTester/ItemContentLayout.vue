@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     addNewFamily: function (payload) {
-      alert("newFamily");
       this.$store.dispatch("addFamily", payload);
     },
     updateFamily: function (id, name) {
